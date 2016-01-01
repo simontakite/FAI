@@ -1,0 +1,15 @@
+a308a2cd6510502ff2883eece9eb4e97  usr/lib/fai/fai-disk-info
+0accff5dea3a9a9707f843a2f718218f  usr/sbin/setup-storage
+b3de5349a0867aaee3eb6f34e8eaed78  usr/share/doc/fai-setup-storage/NEWS.Debian.gz
+8c47559fc43a4a41a551d4e400170d43  usr/share/doc/fai-setup-storage/changelog.gz
+2984631ef2579dcc66e5d0dd67c7c1d4  usr/share/doc/fai-setup-storage/copyright
+bd01049848d7300b4348740967f5f7a4  usr/share/doc/fai-setup-storage/setup-storage-call-graph.txt.gz
+bed4729343f8a9b5a036010bca7748d4  usr/share/doc/fai-setup-storage/setup-storage-overview.txt
+602be786668cd54ff6b2409556ddcf1d  usr/share/fai/setup-storage/Commands.pm
+e47915a0dba9f9da7986a018a8403c68  usr/share/fai/setup-storage/Exec.pm
+3beae6573af8a7111f62d97206400145  usr/share/fai/setup-storage/Fstab.pm
+e9d5cecfe14475e7d1eb90d90a5b0748  usr/share/fai/setup-storage/Init.pm
+55d1dc55c6229b1a528e2ab1c45cdb53  usr/share/fai/setup-storage/Parser.pm
+781b4f1835ff7875d5bd3c622f23373c  usr/share/fai/setup-storage/Sizes.pm
+4ce6f78006e80bd1679bedf76384f2cf  usr/share/fai/setup-storage/Volumes.pm
+7eca67f7c3f94ef6090de3436671ec26  usr/share/man/man8/setup-storage.8.gz

@@ -1,0 +1,8 @@
+emacs24-bin-common binary: setgid-binary usr/lib/emacs/24.4/x86_64-linux-gnu/movemail 2755 root/mail
+emacs24-bin-common binary: binary-without-manpage usr/bin/b2m.emacs24
+emacs24-bin-common binary: binary-without-manpage usr/bin/ctags.emacs24
+emacs24-bin-common binary: binary-without-manpage usr/bin/ebrowse.emacs24
+emacs24-bin-common binary: binary-without-manpage usr/bin/emacsclient.emacs24
+emacs24-bin-common binary: binary-without-manpage usr/bin/etags.emacs24
+emacs24-bin-common binary: binary-without-manpage usr/bin/grep-changelog.emacs24
+emacs24-bin-common binary: binary-without-manpage usr/bin/rcs-checkin.emacs24

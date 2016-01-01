@@ -1,0 +1,11 @@
+# Using the Ubuntu repositories
+deb http://archive.ubuntu.com/ubuntu/ trusty main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse
+
+deb http://security.ubuntu.com/ubuntu trusty-security main restricted universe multiverse
+
+deb http://extras.ubuntu.com/ubuntu trusty main
+
+# FAI repository to get the most up-to-date FAI packages on the install clients
+deb http://fai-project.org/download wheezy koeln

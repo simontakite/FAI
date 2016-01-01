@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+if [ ! -e /var/lib/cupt ]; then
+	mkdir /var/lib/cupt
+fi
+
+# Automatically added by dh_makeshlibs
+if [ "$1" = "configure" ]; then
+	ldconfig
+fi
+# End automatically added section
+
+

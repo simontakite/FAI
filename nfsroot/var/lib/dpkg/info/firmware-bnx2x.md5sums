@@ -1,0 +1,14 @@
+0487d65525b0325ce508b05b66f3dd69  lib/firmware/bnx2x-e1-5.0.21.0.fw
+0fc122771e34b33a144cd9515ffc778b  lib/firmware/bnx2x-e1h-5.0.21.0.fw
+5e88f76e5ba479a7e531020afb846bab  lib/firmware/bnx2x/bnx2x-e1-7.0.29.0.fw
+d06168ea7c3c7c7c438d812d91a58417  lib/firmware/bnx2x/bnx2x-e1-7.8.17.0.fw
+b65508705f741efccff3647effcd17db  lib/firmware/bnx2x/bnx2x-e1-7.8.19.0.fw
+2ee1c60bdee60af6858e13a7e5be277d  lib/firmware/bnx2x/bnx2x-e1h-7.0.29.0.fw
+d4e45ec714d992a5969ae548c1a9acf1  lib/firmware/bnx2x/bnx2x-e1h-7.8.17.0.fw
+0be4e51ffa7cb4d67754624b5e0c6e59  lib/firmware/bnx2x/bnx2x-e1h-7.8.19.0.fw
+18dfc2e0c3dff5916cebb5dee5803aac  lib/firmware/bnx2x/bnx2x-e2-7.0.29.0.fw
+698e7e50bea9c789873ba9cbb822b7ab  lib/firmware/bnx2x/bnx2x-e2-7.8.17.0.fw
+87b5b4d56d10e942c6fb9bf459a557c0  lib/firmware/bnx2x/bnx2x-e2-7.8.19.0.fw
+8dbcc0513822473f1ebe02dcf31dcc01  usr/share/bug/firmware-bnx2x/presubj
+4322dab2f282775e9913f6399b4e7c31  usr/share/doc/firmware-bnx2x/changelog.gz
+9c4b3f4c67e743b593c5afc30c7228c9  usr/share/doc/firmware-bnx2x/copyright

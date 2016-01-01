@@ -1,0 +1,456 @@
+Package: dracut
+Priority: optional
+Section: utils
+Installed-Size: 1131
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: amd64
+Version: 044+3-1
+Replaces: dracut-network (<< 043-2)
+Provides: linux-initramfs-tool
+Depends: cpio, kmod, udev, kpartx, console-setup, util-linux (>= 2.20), pkg-config, libc6 (>= 2.14)
+Recommends: cryptsetup, dmsetup, dmraid, lvm2, mdadm
+Suggests: dracut-network
+Conflicts: initramfs-tools, live-tools
+Breaks: dracut-network (<< 043-2)
+Filename: jessie/dracut_044+3-1_amd64.deb
+Size: 227740
+MD5sum: a2f21f7660c4edc04ae9c527a8b91a31
+SHA1: 55a8c32c9587f82a5bf17da4e8914ed7f48d9bd9
+SHA256: 93fc1e0029a35761230692d3683bb9293041f8c10634bffd7098f2ccd659aebd
+SHA512: 82425fdfebf51c2dc3ffef4974892dab65066077cd01b9ac09f7960cc8744fe6edf50a2c4e88d15296b17a58ae742eed5958542482349c400678f9e129e59226
+Description: Low-level tool for generating an initramfs image
+ Unlike existing initramfs's, this is an attempt at having as little as
+ possible hard-coded into the initramfs as possible.  The initramfs has
+ (basically) one purpose in life -- getting the rootfs mounted so that
+ we can transition to the real rootfs.  This is all driven off of
+ device availability.  Therefore, instead of scripts hard-coded to do
+ various things, we depend on udev to create device nodes for us and
+ then when we have the rootfs's device node, we mount and carry on.
+ Having the root on MD, LVM2, LUKS is supported as well as NFS, iSCSI,
+ NBD and FCOE with dracut-network.
+Multi-Arch: foreign
+Homepage: http://www.kernel.org/pub/linux/utils/boot/dracut/dracut.html
+
+Package: dracut-config-generic
+Priority: optional
+Section: utils
+Installed-Size: 38
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Source: dracut
+Version: 044+3-1
+Depends: dracut
+Filename: jessie/dracut-config-generic_044+3-1_all.deb
+Size: 5644
+MD5sum: d4d2deb0c668362fe4f6bca6cfb2102a
+SHA1: 30580cecbd8994d75f27ada0d79725ea32d45cdd
+SHA256: 03c97eedff0c72af76167592dbe58279fa3899d2c3e8ae7e19be9becd0b11e8c
+SHA512: 0fb2cb0148f16ee4582991f7f02c9cd7d29b2a5f890a31bb8d17aa2d9ea2ec971c3916c691481e7743b0eedcb0e7e3427e89e5dd0e8f5e33479bd11edd8f1771
+Description: Low-level tool for generating an initramfs image
+ This is the dracut configuration to turn off hostonly image generation
+Homepage: http://www.kernel.org/pub/linux/utils/boot/dracut/dracut.html
+
+Package: fai-server
+Priority: extra
+Section: admin
+Installed-Size: 222
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Source: fai
+Version: 5.0.1
+Depends: fai-client, debootstrap, xz-utils
+Recommends: nfs-kernel-server, isc-dhcp-server, tftpd-hpa | atftpd, openssh-server, openssh-client, openbsd-inetd | inet-superserver, libproc-daemon-perl
+Suggests: debmirror, reprepro, xorriso, squashfs-tools, binutils, grub, aptitude, perl-tk
+Filename: jessie/fai-server_5.0.1_all.deb
+Size: 63960
+MD5sum: 347d45e70c7cedfb8eac1583099b4d45
+SHA1: e006a02eb6ca2deeea674595d1718d786adb602d
+SHA256: b6aee007038226dd9f77d3a8757b1197438aab575f046072dbea3f917542ab5a
+SHA512: d10b24c04db2230345494d0c40765c4b241738d9fcca1a84a29e3a7804ccbd8ff3d054ec89220e663fa6ab634eceded36eb0c65b6f62cd17919f6940c3c35e31
+Description: Fully Automatic Installation server package
+ FAI is a non-interactive system to install, customize and manage
+ Linux systems and software configurations on computers as well as
+ virtual machines and chroot environments, from small networks to
+ large infrastructures and clusters.
+ .
+ It's a tool for mass unattended Linux installation. You can take one
+ or more virgin systems, turn on the power, and after a few minutes,
+ the systems are installed, and completely configured to your exact
+ needs, without any interaction necessary.
+ .
+ This package is needed for setting up a FAI install server for network
+ installations, for running the dirinstall in a chroot environment, and
+ to build installation CD/DVD's and USB sticks.
+Homepage: http://fai-project.org
+
+Package: dracut-network
+Priority: optional
+Section: utils
+Installed-Size: 297
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Source: dracut
+Version: 044+3-1
+Depends: dracut, iputils-arping, isc-dhcp-client
+Recommends: nfs-common, open-iscsi, nbd-client, curl
+Filename: jessie/dracut-network_044+3-1_all.deb
+Size: 47360
+MD5sum: 389f02dbbb54805d52878d5627902af2
+SHA1: b78d8f305ce3af52308ba4141556b6d2f9a401ee
+SHA256: 5c06632c7dea8ac546ae6b0aa2a9b0786a21a423d820d8983d161b5c76f5ac45
+SHA512: 7eca6d4c4d9fed5028a20039cc3e61ea10d932ff8dd37f6f4bf4fdfe4c16898076a9c5e85e2c6aeca10d69d1e79cc8c2dc2de841818c39e53e4718596b2ace89
+Description: Low-level tool for generating an initramfs image
+ Unlike existing initramfs's, this is an attempt at having as little as
+ possible hard-coded into the initramfs as possible.  The initramfs has
+ (basically) one purpose in life -- getting the rootfs mounted so that
+ we can transition to the real rootfs.  This is all driven off of
+ device availability.  Therefore, instead of scripts hard-coded to do
+ various things, we depend on udev to create device nodes for us and
+ then when we have the rootfs's device node, we mount and carry on.
+ Having the root on MD, LVM2, LUKS is supported as well as NFS, iSCSI,
+ NBD and FCOE with dracut-network.
+Homepage: http://www.kernel.org/pub/linux/utils/boot/dracut/dracut.html
+
+Package: fai-setup-storage
+Priority: extra
+Section: admin
+Installed-Size: 337
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Source: fai
+Version: 5.0.1
+Depends: perl, libparse-recdescent-perl, liblinux-lvm-perl, parted
+Recommends: lvm2, mdadm
+Suggests: dmsetup, cryptsetup, dosfstools, jfsutils, ntfs-3g, reiserfsprogs, xfsprogs
+Filename: jessie/fai-setup-storage_5.0.1_all.deb
+Size: 120924
+MD5sum: 52b381b28b539e16ea55cfffb15003fc
+SHA1: bb23bfdb2f9892b075ced5c429d58d2f0be0a703
+SHA256: 63c01514b44064c4369ee658b55457a33d50a4438f32a58704d64896de6a4635
+SHA512: cbab9654ceb9f476e179fea11b3fe32e30847efac850ea658625ceccf41da4c99b004fa616b05bb8eed3a858f92c5922f9753d4841025b751fd8bcddf4a6a9fd
+Description: automatically prepare storage devices
+ Using FAI disk_config files, setup-storage computes effective
+ partition and volume sizes and executes the necessary commands
+ to configure storage devices. It manages disk drives as well
+ as RAID and LVM volumes. It handles all file systems supported
+ by parted(8) as well as ntfs but is flexible enough to be
+ extended to further types as well. Once the storage devices
+ are prepared, an appropriate fstab(5) file is generated.
+ .
+ This package provides the setup-storage utility as separate
+ package so it can be used independent from FAI as well.
+Homepage: http://fai-project.org
+
+Package: fai-server
+Priority: extra
+Section: admin
+Installed-Size: 214
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Source: fai
+Version: 4.3.3
+Depends: fai-client, debootstrap
+Recommends: nfs-kernel-server, isc-dhcp-server, tftpd-hpa | atftpd, openssh-server, openssh-client, openbsd-inetd | inet-superserver, libproc-daemon-perl
+Suggests: debmirror, reprepro, xorriso, binutils, grub, aptitude, perl-tk
+Filename: jessie/fai-server_4.3.3_all.deb
+Size: 61792
+MD5sum: 801fe8fc1e2049f4263704881e7f44b1
+SHA1: 361eaec2ef3ff45ccbafeca7d6e728f998a46da0
+SHA256: bf2964f9f6a209d9e72ce83e549cb391644408958e2955174ac8ba6708581732
+SHA512: 030951f80eae1e3f87af8d4ddd33cc42bdcc13315549e3a253ef375a44d7121686516836d5ea071df88315fa7f79c8e1ae6b47f113527d1698ce75215d2f4e97
+Description: Fully Automatic Installation server package
+ FAI is a non-interactive system to install, customize and manage
+ Linux systems and software configurations on computers as well as
+ virtual machines and chroot environments, from small networks to
+ large infrastructures and clusters.
+ .
+ It's a tool for mass unattended Linux installation. You can take one
+ or more virgin systems, turn on the power, and after a few minutes,
+ the systems are installed, and completely configured to your exact
+ needs, without any interaction necessary.
+ .
+ This package is needed for setting up a FAI install server for network
+ installations, for running the dirinstall in a chroot environment, and
+ to build installation CD/DVD's and USB sticks.
+Homepage: http://fai-project.org
+
+Package: rinse
+Priority: extra
+Section: admin
+Installed-Size: 351
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Version: 3.1.1
+Depends: wget, libterm-size-perl, libwww-perl, perl, rpm, cpio (>= 2.11+dfsg-4.1)
+Filename: jessie/rinse_3.1.1_all.deb
+Size: 27114
+MD5sum: 8c69fad9fa75aebdce47c57ced747b69
+SHA1: f35ff13137a1abf3f3939561cd999ddb73d7be80
+SHA256: 83c85afe030e3d9ebbce4334929da94bffc31c616426fded842aaf2a54bc14b8
+SHA512: 425941c0f4c212fde68275dfc1d9cdece5a13032fb3a47417c36c938f4999bbb10f9abc7744b2fb01f86af910e1c35d16e611c66bd0e0e003972c2197294539c
+Description: RPM installation environment
+ This is a tool for bootstrapping a basic RPM-based distribution of
+ GNU/Linux.
+ .
+ It is comparable in purpose to the standard Debian debootstrap utility,
+ but works upon RPM-based distributions instead.
+ .
+ Rinse can setup 32 and 64-bit installations of:
+  * CentOS
+  * Scientific Linux CERN
+  * Fedora
+  * OpenSUSE
+Homepage: http://collab-maint.alioth.debian.org/rinse/
+
+Package: fai-nfsroot
+Priority: extra
+Section: admin
+Installed-Size: 160
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Source: fai
+Version: 4.3.3
+Depends: fai-client, fai-setup-storage, pxelinux | syslinux-common
+Filename: jessie/fai-nfsroot_4.3.3_all.deb
+Size: 78682
+MD5sum: 3af685fba3e12d6585f7a1745afa3967
+SHA1: 8f3903132509346124b473a3d301d179261b9c3b
+SHA256: de6e596c05c5d235c087276167e04ac3808d7343bf6229e8e3a44d7f3f549aa6
+SHA512: 5ba595ba6311882c43d6588af1779f02b065cebd3aa2d53c9465cb2b425357352e59b6c659f3a61841b7c83943d3b52874fc855e52e34508a849a7183c89c28e
+Description: Fully Automatic Installation nfsroot package
+ FAI is a non-interactive system to install, customize and manage
+ Linux systems and software configurations on computers as well as
+ virtual machines and chroot environments, from small networks to
+ large infrastructures and clusters.
+ .
+ This package contains the software that is only needed in
+ the FAI nfsroot. Do not install this package on a normal machine.
+Homepage: http://fai-project.org
+
+Package: fai-client
+Priority: extra
+Section: admin
+Installed-Size: 311
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Source: fai
+Version: 4.3.3
+Depends: perl, file, libapt-pkg-perl, iproute2 | iproute, debconf-utils
+Recommends: libgraph-perl
+Suggests: logtail
+Filename: jessie/fai-client_4.3.3_all.deb
+Size: 133252
+MD5sum: 04f320cad75f915348ce2fdb443590e5
+SHA1: 3d79188d71701fc151fb499ee1f8c4fb89c6c396
+SHA256: adcb916c8f7397c775f4c6c55dcbc98ed3de7d8e1c265a8d36879d45d6ad5a08
+SHA512: c86461fcc3dd65a56c8d01549228ce7ce5f92ff181f57c4d787f64c220c8620ec4cd2d16cb64575cad24acba4289319508fa38d232bdd390882cbf6e37ca8bf4
+Description: Fully Automatic Installation client package
+ FAI is a non-interactive system to install, customize and manage
+ Linux systems and software configurations on computers as well as
+ virtual machines and chroot environments, from small networks to
+ large infrastructures and clusters.
+ .
+ This is the client package for FAI. It contains the parts necessary
+ to run the softupdate functionality on already installed systems, and
+ is needed for the dirinstall functionality and others on a FAI server.
+Homepage: http://fai-project.org
+
+Package: fai-nfsroot
+Priority: extra
+Section: admin
+Installed-Size: 179
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Source: fai
+Version: 5.0.1
+Depends: fai-client, fai-setup-storage, pxelinux | syslinux-common
+Filename: jessie/fai-nfsroot_5.0.1_all.deb
+Size: 83360
+MD5sum: 31e6eacc9488968641de87ae6904e9b2
+SHA1: 8767e11acd33050802413b6f5c1776ca7b15c494
+SHA256: 4c4ef221e7bc2a64f87fdc524efc5f8a4284ed32934330c02c0f17b612474021
+SHA512: e1c18cebbfdb1e4a42dd6b2aacbde2dc56991fd308093b0c3c38577f47e7245c1de42df3959aaf535987fcdf609c9c07e76e81b4bdbfdeffe6dad4c11787609a
+Description: Fully Automatic Installation nfsroot package
+ FAI is a non-interactive system to install, customize and manage
+ Linux systems and software configurations on computers as well as
+ virtual machines and chroot environments, from small networks to
+ large infrastructures and clusters.
+ .
+ This package contains the software that is only needed in
+ the FAI nfsroot. Do not install this package on a normal machine.
+Homepage: http://fai-project.org
+
+Package: fai-doc
+Priority: extra
+Section: doc
+Installed-Size: 1139
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Source: fai
+Version: 4.3.3
+Filename: jessie/fai-doc_4.3.3_all.deb
+Size: 825474
+MD5sum: 7780ca69fc0eeef2972f778037ac6028
+SHA1: 086f7eef0426fc39a7ce2fa16a1f2b256c927c10
+SHA256: 5f8beefc56b51b06cc17def151ec1d8d1db8b7029685f8601a72f95205bb8d41
+SHA512: a9959ee945246974f9130f05328d1ec21a24cbd13695043558d23a19f4dd003b2678b37c3fcc0cdecce3c2c3f47d7058921643dd7574a73bd95d4f20e3b48d86
+Description: Documentation for FAI
+ FAI is a non-interactive system to install, customize and manage
+ Linux systems and software configurations on computers as well as
+ virtual machines and chroot environments, from small networks to
+ large infrastructures and clusters.
+ .
+ This is the documentation for FAI in various formats.
+Homepage: http://fai-project.org
+
+Package: fai-setup-storage
+Priority: extra
+Section: admin
+Installed-Size: 330
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Source: fai
+Version: 4.3.3
+Depends: perl, libparse-recdescent-perl, liblinux-lvm-perl, parted
+Recommends: lvm2, mdadm
+Suggests: dmsetup, cryptsetup, dosfstools, jfsutils, ntfs-3g, reiserfsprogs, xfsprogs
+Filename: jessie/fai-setup-storage_4.3.3_all.deb
+Size: 117088
+MD5sum: ade28d736d3d1329c018a3a398f6de26
+SHA1: e867451fd2dea2743da72c4da3041df5ddb8dc2b
+SHA256: 9da2ddbdb7fb4b985614fbbf1934ea3f5fe7f6d9b06f9afb0f496baed579782e
+SHA512: 39365d24bd71a131d523fbb2088167a91715042b5de4b51821a9cd01b2882fdbf69f12d412119834b483aad883490094781a66edf533f37da0a05a68bb9d4fe9
+Description: automatically prepare storage devices
+ Using FAI disk_config files, setup-storage computes effective
+ partition and volume sizes and executes the necessary commands
+ to configure storage devices. It manages disk drives as well
+ as RAID and LVM volumes. It handles all file systems supported
+ by parted(8) as well as ntfs but is flexible enough to be
+ extended to further types as well. Once the storage devices
+ are prepared, an appropriate fstab(5) file is generated.
+ .
+ This package provides the setup-storage utility as separate
+ package so it can be used independent from FAI as well.
+Homepage: http://fai-project.org
+
+Package: fai-doc
+Priority: extra
+Section: doc
+Installed-Size: 1065
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Source: fai
+Version: 5.0.1
+Filename: jessie/fai-doc_5.0.1_all.deb
+Size: 743480
+MD5sum: c336bfb9e44a710fbc246a557529adc7
+SHA1: 47be27e37f026ba78edef9c151d41c89640f5ef7
+SHA256: aec13be5c29f0aff970a9d797754e0c6d0bfe83ea485ee5e5d20afc7e3c78026
+SHA512: 396f5a69d224891af6fc23568a83bb1ed41f24dd7943d1f4549ee92b2d3f859176c16e2a6e1d98d4c46101ff8f9bdd98f62d70751e3ebb6dd69fb0832f057e3b
+Description: Documentation for FAI
+ FAI is a non-interactive system to install, customize and manage
+ Linux systems and software configurations on computers as well as
+ virtual machines and chroot environments, from small networks to
+ large infrastructures and clusters.
+ .
+ This is the documentation for FAI in various formats.
+Homepage: http://fai-project.org
+
+Package: dracut-config-rescue
+Priority: optional
+Section: utils
+Installed-Size: 38
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Source: dracut
+Version: 044+3-1
+Depends: dracut
+Filename: jessie/dracut-config-rescue_044+3-1_all.deb
+Size: 5634
+MD5sum: d8f307ff1684b5eedc368e1797387d27
+SHA1: 4439c943c1fc82001a8394610a76fcfd3977ffb2
+SHA256: a29ad18544a30b491e551f6924fc6c63173f68140ec39cdd7e61f9c8fccd4390
+SHA512: 6b14e91a69b47e0aeba71a68b73fd520fc9ac0c74f1d737562f774e0373e44290db3c5589db43b4a136fc36b5ca608b370f53257b5e6b6239a598648747bdbb5
+Description: Low-level tool for generating an initramfs image
+ This is the dracut configuration to turn on rescue image generation
+Homepage: http://www.kernel.org/pub/linux/utils/boot/dracut/dracut.html
+
+Package: fai-quickstart
+Priority: extra
+Section: admin
+Installed-Size: 29
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Source: fai
+Version: 4.3.3
+Depends: fai-server, fai-doc, isc-dhcp-server, nfs-kernel-server, tftpd-hpa | atftpd, reprepro, xorriso, binutils, openbsd-inetd | inet-superserver
+Filename: jessie/fai-quickstart_4.3.3_all.deb
+Size: 1482
+MD5sum: 77e1088bb2ac047e42eb603901ea4210
+SHA1: 6b2875ef6433be350e530165d8b07965512d8058
+SHA256: ee75dcc6de696518d0ab6522fea8a9534ceeb9fce3a1760f3dd01635eaa0ed65
+SHA512: 51de7bddbd3bc7b355ed666cd4d1b49cd7759d5e8ece19d2ee918897b5da28d357a771891c069a9e27a8e0f18b9c824c38700eca2e0b2eb20f47b03749f1b6cb
+Description: Fully Automatic Installation quickstart package
+ FAI is a non-interactive system to install, customize and manage
+ Linux systems and software configurations on computers as well as
+ virtual machines and chroot environments, from small networks to
+ large infrastructures and clusters.
+ This package setups an install server with some basic
+ examples. It should be removed when creating your own config space.
+Homepage: http://fai-project.org
+
+Package: fai-client
+Priority: extra
+Section: admin
+Installed-Size: 322
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Source: fai
+Version: 5.0.1
+Depends: perl, file, libapt-pkg-perl, iproute2 | iproute, debconf-utils
+Recommends: libgraph-perl
+Suggests: logtail
+Filename: jessie/fai-client_5.0.1_all.deb
+Size: 138890
+MD5sum: 893125e379213535e40b5d9e01cc4d2c
+SHA1: ad9b67638ca993a73cac4ffb76eaeda8bf086752
+SHA256: 001b0c25acbe4b1c12d9b83679789ce17a99cdbd99e3db75e5c603040eba22a2
+SHA512: da4023a5ff007a0c7069eed7de7658ea61f5ec8180658fe3961ea31e6ec0c0cfdabaf38ec02fdbc109934e23521da9869d20cb0df5b51678799419042b437ed8
+Description: Fully Automatic Installation client package
+ FAI is a non-interactive system to install, customize and manage
+ Linux systems and software configurations on computers as well as
+ virtual machines and chroot environments, from small networks to
+ large infrastructures and clusters.
+ .
+ This is the client package for FAI. It contains the parts necessary
+ to run the softupdate functionality on already installed systems, and
+ is needed for the dirinstall functionality and others on a FAI server.
+Homepage: http://fai-project.org
+
+Package: fai-quickstart
+Priority: extra
+Section: admin
+Installed-Size: 29
+Maintainer: Thomas Lange <lange@debian.org>
+Architecture: all
+Source: fai
+Version: 5.0.1
+Depends: fai-server, fai-doc, isc-dhcp-server, nfs-kernel-server, tftpd-hpa | atftpd, reprepro, xorriso, squashfs-tools, binutils, openbsd-inetd | inet-superserver
+Filename: jessie/fai-quickstart_5.0.1_all.deb
+Size: 1526
+MD5sum: acca7055e9e37cea2aae4e1131b5eeaa
+SHA1: 50888da1be906253f7696ae039b9b1c414fe16cf
+SHA256: 4e5d54b834de9ad71e6bebf5bbcff99f3b3c758d74e61d6f4a33ae09e80a5878
+SHA512: 26f5ecb7b175fc36c0525622325a2f690c91c35fd6ed51e2819af670c05be873ee16acdb8f28d62d854259c28d59789f97ec12f79c4509a3adfea390e50ad073
+Description: Fully Automatic Installation quickstart package
+ FAI is a non-interactive system to install, customize and manage
+ Linux systems and software configurations on computers as well as
+ virtual machines and chroot environments, from small networks to
+ large infrastructures and clusters.
+ This package setups an install server with some basic
+ examples. It should be removed when creating your own config space.
+ .
+ This package is a dependency package, which will install some
+ packages needed for FAI.
+Homepage: http://fai-project.org
+

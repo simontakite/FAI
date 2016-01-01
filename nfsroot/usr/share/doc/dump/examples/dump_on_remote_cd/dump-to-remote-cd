@@ -1,0 +1,98 @@
+#!/bin/bash
+#ident "@(#) dump-to-remote-cd Time-stamp: <02/05/06 15:12:29 bav> "
+#******************************************************************
+# dump-to-remote-cd
+#******************************************************************
+#                              Gerd Bavendiek bav@epost.de 02-05-02
+#
+# Script used to dump to a remote box with a CD-Burner. There is a
+# companion script called get-dumpdata-to-cdrecord.
+# 
+# Usage: dump-to-remote-cd [ -c <CD_capacity> ] [files to dump ...]
+#
+# If called without arguments, it will dump / assuming 650 MB Media on
+# host kiki (see DEFAULT_ below).
+#
+# You must be able to do an rsh as root to BURN_HOST and vice versa,
+# see get-dumpdata-to-cdrecord. You may use ssh instead.
+#------------------------------------------------------------------
+
+#--- Customize to fit your needs ----------------------------------
+
+PATH_TO_GET_DUMPDATA_TO_CDRECORD=/root/tools/get-dumpdata-to-cdrecord
+PATH_TO_XTERM=/usr/X11R6/bin/xterm
+
+FIFO_NAME=/tmp/get-dumpdata-to-cdrecord.fifo
+
+BURN_HOST=kiki
+
+DEFAULT_CD_CAPACITY=650
+DEFAULT_FS=/
+
+#--- End of customizing -------------------------------------------
+
+USER_EXIT=$0
+
+Usage(){
+echo >&2 "Usage: `basename $0` [ -c <CD_capacity> ] [files to dump ...]"
+  exit 1
+}
+
+if [ `id -u` != 0 ]; then 
+  echo "$0: ERROR: root priviledges are required ..."
+  exit 1
+fi
+
+# Check whether first argument is a named pipe
+if [ -p "$1" ]; then
+   # We are called internally either from ourselves or from dump 
+   FIFO_NAME=$1
+   num=$[$2+1]
+   tput bel;sleep 1; tput bel
+   echo "Insert next CD (number $num) ..."
+   read -p "CD number $num ready ? " Ans
+   DUMP_HOST=`uname -n`
+   rsh $BURN_HOST \
+   $PATH_TO_XTERM -hold -T "Dump_CD_number_$num" -cr red -fn 6x10 -e \
+   $PATH_TO_GET_DUMPDATA_TO_CDRECORD -d $DUMP_HOST -f $FIFO_NAME &
+   exit 0
+fi
+
+CD_CAPACITY=$DEFAULT_CD_CAPACITY
+FS=$DEFAULT_FS
+
+# We will reach this code only when not called internally
+while getopts "b:c:h" c; do
+  case $c in
+   c) # Media Capacity
+      CD_CAPACITY=$OPTARG
+      ;;
+   h) # help those who ask for help
+      Usage
+      ;;
+   '?') # any other switch
+      Usage
+      ;;
+  esac
+done
+
+shift `expr $OPTIND - 1`
+
+if [ -n "$*" ]; then FS="$*"; fi
+
+DumpLevel=0               # level 0 dump
+Label=`date -I`           # Take today's date as label, e.g. 2002-05-02
+
+eval Capacity=$(($CD_CAPACITY*1024))
+
+# Remove the fifo on the server and make a new one
+rm -f $FIFO_NAME; mkfifo $FIFO_NAME
+
+# Call user exit for the very first time, all further calls will be
+# done via dump
+$USER_EXIT $FIFO_NAME 0 
+sleep 2
+
+# Run dump
+dump -z -B$Capacity -F $USER_EXIT -$DumpLevel -L $Label -f $FIFO_NAME $FS
+

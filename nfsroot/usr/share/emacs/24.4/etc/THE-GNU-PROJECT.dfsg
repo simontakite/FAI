@@ -1,0 +1,10 @@
+
+The file that would normally be displayed here (THE-GNU-PROJECT) has been moved
+to the emacs24-common-non-dfsg package because its
+license does not appear to be compatible with the Debian Free Software
+Guidelines (DFSG).  Please see
+/usr/share/doc/emacs24-common/copyright for more
+information.
+
+Please install THE-GNU-PROJECT from Debian's non-free distribution if you would
+like for Emacs to display the original file.

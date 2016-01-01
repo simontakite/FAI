@@ -1,0 +1,23 @@
+#!/bin/bash
+# supplied info from "dump -F":
+# $1 = filename
+# $2 = sequence number
+
+NUM=$(($2+1))
+RECORD_BIN="/usr/bin/dvdrecord dev=0,0,0 fs=64M speed=2 "
+echo "Please insert the next CD (No. $NUM)"
+ANSWER=""
+while [ "$ANSWER" != "y" ] ; do
+	read -p "Is the CD ready? (y/n)" ANSWER
+	if [ "$ANSWER" == "y" ] ; then
+		$RECORD_BIN -blank=fast
+		$RECORD_BIN -eject -pad -data $1 &
+		exit 0
+	elif [ "$ANSWER" == "n" ] ; then
+		EXIT=""
+		read -p "Do you really want to exit? (y/n)" EXIT
+		if [ "$EXIT" == "y" ] ; then
+			exit 1
+		fi
+	fi
+done

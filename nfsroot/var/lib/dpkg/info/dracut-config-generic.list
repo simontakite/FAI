@@ -1,0 +1,11 @@
+/.
+/etc
+/etc/dracut.conf.d
+/etc/dracut.conf.d/20-generic-image.conf
+/usr
+/usr/share
+/usr/share/doc
+/usr/share/doc/dracut-config-generic
+/usr/share/doc/dracut-config-generic/changelog.Debian.gz
+/usr/share/doc/dracut-config-generic/NEWS.Debian.gz
+/usr/share/doc/dracut-config-generic/copyright

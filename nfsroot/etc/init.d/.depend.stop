@@ -1,0 +1,14 @@
+TARGETS = mdadm smartmontools sendsigs urandom rsyslog umountnfs.sh rpcbind nfs-common hwclock.sh networking umountfs umountroot mdadm-raid mdadm-waitidle halt reboot
+sendsigs: mdadm
+rsyslog: sendsigs mdadm smartmontools
+umountnfs.sh: rsyslog sendsigs
+rpcbind: umountnfs.sh
+nfs-common: umountnfs.sh
+hwclock.sh: rsyslog nfs-common
+networking: rpcbind umountnfs.sh
+umountfs: hwclock.sh mdadm urandom rpcbind umountnfs.sh networking
+umountroot: umountfs
+mdadm-raid: umountfs mdadm
+mdadm-waitidle: umountroot
+halt: umountroot mdadm-waitidle
+reboot: umountroot mdadm-waitidle

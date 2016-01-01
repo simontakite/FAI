@@ -1,0 +1,8 @@
+c6a4caf6f903e465fbc60a5b4a35bc0e  usr/bin/emacs24-nox
+593501773dfe68c26137b599f9426484  usr/share/doc/emacs24-nox/README.Debian
+74a525c7f0db4061be20263af7b7caa3  usr/share/doc/emacs24-nox/changelog.Debian.gz
+06d0ce8408a7520670fa9f08827d13b8  usr/share/doc/emacs24-nox/changelog.gz
+31106859b5798d77b67f407be5a42a90  usr/share/doc/emacs24-nox/copyright
+2d7478a31e86bf3d81a70ddc568b65f5  usr/share/emacs/24.4/etc/DOC
+f1c9a44c31493b2b7d955d4aae975a31  usr/share/lintian/overrides/emacs24-nox
+ee99a8b21d94f929e29c95a8448fb1a7  usr/share/menu/emacs24-nox

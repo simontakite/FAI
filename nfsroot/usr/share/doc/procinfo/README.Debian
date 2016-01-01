@@ -1,0 +1,13 @@
+procinfo for Debian
+-------------------
+
+Procinfo contain also two script, lsdev and socklist
+
+Lsdev is a Perl script that attempts to tabulate DMA, IRQ and I/O port
+allocation per kernel driver.
+
+Socklist is a Perl script that gives you a list of all open sockets,
+enumerating types, port, inode, uid, pid, fd and the program to which
+it belongs. Contributed by Larry Doolittle <ldoolitt@jlab.org>.
+
+ -- Giuseppe Iuculano <giuseppe@iuculano.it>  Tue, 20 Aug 2008 14:36:41 +0200

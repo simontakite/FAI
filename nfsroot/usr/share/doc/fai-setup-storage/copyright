@@ -1,0 +1,21 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+
+Files: *
+Copyright: 1999-2014 Thomas Lange <lange@informatik.uni-koeln.de>
+License: GPL-2+
+Comment:
+    Other contributions copyright by
+    Thomas Gebhardt         <gebhardt@hrz.uni-marburg.de>
+    Henning Glawe           <glaweh@physik.fu-berlin.de>
+    Michael Goetze          <mgoetze@mgoetze.net>
+    Kerim Güney             <kerim@fai-[roject.org>
+    Jonas Hoffmann          <jhoffman@physik.fu-berlin.de>
+    Christian Kern          <kernch@in.tum.de>
+    Holger Levsen           <holger@layer-acht.org>
+    Darshaka Pathirana      <dpat@syn-net.org>
+    Michael Tautschnig      <mt@debian.org>
+    Ingo Wichmann           <iw@linuxhotel.de>
+
+License: GPL-2+
+  The full text of the GPL is distributed as in
+  /usr/share/common-licenses/GPL-2 on Debian systems.

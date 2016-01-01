@@ -1,0 +1,17 @@
+?package(emacs24-nox):\
+  needs="X11"\
+  section="Applications/Editors"\
+  title="Emacs 24 (X11)"\
+  command="/usr/bin/emacs24"\
+  icon16x16="/usr/share/emacs/24.4/etc/images/icons/hicolor/16x16/apps/emacs.xpm"\
+  icon32x32="/usr/share/emacs/24.4/etc/images/icons/hicolor/32x32/apps/emacs.xpm"\
+  hints="Text"
+
+?package(emacs24-nox):\
+  needs="text"\
+  section="Applications/Editors"\
+  title="Emacs 24 (text)"\
+  command="/usr/bin/emacs24 -nw"\
+  icon16x16="/usr/share/emacs/24.4/etc/images/icons/hicolor/16x16/apps/emacs.xpm"\
+  icon32x32="/usr/share/emacs/24.4/etc/images/icons/hicolor/32x32/apps/emacs.xpm"\
+  hints="Text"

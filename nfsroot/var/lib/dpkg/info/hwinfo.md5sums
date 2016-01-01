@@ -1,0 +1,7 @@
+f63daf6fdc92c58c24c9aedfac1c33f1  usr/sbin/hwinfo
+6c81ac978ae25832d1f92fe0195ae960  usr/share/doc/hwinfo/README.gz
+9755c195dc8fbcf7a6195354486a1d33  usr/share/doc/hwinfo/TODO.Debian
+bece60010eb90f3d198de79d5df969a8  usr/share/doc/hwinfo/changelog.Debian.gz
+83e7aa296efcd73099a7f85089c48dcc  usr/share/doc/hwinfo/changelog.gz
+aebe05c8e405cfda3b9e6bf3d7eb54bf  usr/share/doc/hwinfo/copyright
+f9b266001ab7849dd320a6c719e89c6b  usr/share/man/man8/hwinfo.8.gz

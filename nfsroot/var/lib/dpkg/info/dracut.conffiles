@@ -1,0 +1,7 @@
+/etc/bash_completion.d/dracut
+/etc/bash_completion.d/lsinitrd
+/etc/dracut.conf
+/etc/dracut.conf.d/10-debian.conf
+/etc/kernel/postinst.d/dracut
+/etc/kernel/postrm.d/dracut
+/etc/logrotate.d/dracut

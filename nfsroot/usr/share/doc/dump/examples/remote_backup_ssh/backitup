@@ -1,0 +1,59 @@
+#!/bin/sh
+
+#
+# This script will backup local drives to a remote tape drive over ssh.
+#  written by David B. Peterson <dave@toppledwagon.com>
+#
+# Follow these steps before using it the first time:
+# 1.  Configure the env variables below, especially OPERATOR, TAPEHOST
+#      TAPEDEV, and FILESYSTEMS
+# 2.  run the following commands as root (on the machine to be backed up):
+# ssh-keygen -t dsa
+# cat ~/.ssh/id_dsa.pub | ssh OPERATOR@TAPEHOST 'cat - >> ~/.ssh/authorized_keys2'
+#
+# where OPERATOR and TAPEHOST are as you have defined below.
+
+# We will run under screen so you can come back to the backup, if you need to.
+if [ ! "$WINDOW" ]; then
+   exec screen $0
+   exit
+fi
+
+# ssh-agent allows us to backup securely without entering the passphrase so
+# many times.  This version uses openssh v2.9
+if [ ! $SSH_AGENT_PID ]; then
+   echo Starting ssh-agent...
+   exec ssh-agent -- /bin/sh $0
+   exit
+fi
+
+OPERATOR=backup
+TAPEHOST=tapehost.example.com
+TAPEDEV=/dev/nst0
+RMT=/sbin/rmt
+RSH='/usr/bin/ssh'
+DATE=`date +%Y%m%d`
+DUMP='/sbin/dump 0auf'
+LOGDIR=/var/log/backup
+FILESYSTEMS='hda1 hda7 hda6 hda5 hda10'
+
+#### config above ####
+# backup FILESYSTEMS to the TAPEDEV on TAPEHOST with DUMP as OPERATOR using RSH
+
+export RMT RSH
+mkdir -p $LOGDIR &> /dev/null
+ssh-add ~/.ssh/id_dsa
+
+echo "Rewinding tape..."
+REWIND="mt -f $TAPEDEV rewind"
+$RSH $OPERATOR@$TAPEHOST $REWIND
+
+for FS in $FILESYSTEMS
+do
+   $DUMP $OPERATOR@$TAPEHOST:$TAPEDEV /dev/$FS 2>&1 | tee $LOGDIR/$FS.$DATE
+done
+
+echo "Rewinding and ejecting tape..."
+OFFLINE="mt -f $TAPEDEV offline"
+$RSH $OPERATOR@$TAPEHOST $OFFLINE
+

@@ -1,0 +1,36 @@
+#!/bin/bash
+# This script dumps the specified Filesystem via dump on a CD/DVD
+# CD_CAPACITY defines the capacity in MB per CD
+# The script for the next volume is passed via the -F option of dump
+# FILESYSTEM defines the filesystem to back up
+COMPRESSION_LEVEL=2
+RECORD_BIN="/usr/bin/dvdrecord dev=0,0,0 fs=64M speed=2 "
+EXITSCRIPT="/root/bin/dvd_dump_userexit"
+FILESYSTEM="/home"
+LEVEL=0
+LABEL="`date -I`"
+CD_CAPACITY=700
+TSIZE="$(echo "$CD_CAPACITY*1024*1024" | bc -l )"
+BSIZE="$(echo "$CD_CAPACITY*1024" | bc -l )"
+FIFO="/tmp/dump.fifo"
+DUMP_BIN="/usr/sbin/dump -z$COMPRESSION_LEVEL -b64 -B$BSIZE -F $EXITSCRIPT -$LEVEL -L $LABEL -f $FIFO $FILESYSTEM"
+
+rm -f $FIFO
+mkfifo $FIFO
+ANSWER=""
+while [ "$ANSWER" != "y" ] ; do  
+	read -p "Did you insert CD No. 1? (y/n)" ANSWER
+	if [ "$ANSWER" == "y" ] ; then
+		$RECORD_BIN -blank=fast
+		$RECORD_BIN -eject -pad -tsize=$TSIZE -data $FIFO &
+		$DUMP_BIN 
+		rm -f $FIFO
+		exit 0
+	elif [ "$ANSWER" == "n" ] ; then
+		EXIT=""
+		read -p "Do you really want to exit? (y/n)" EXIT
+		if [ "$EXIT" == "y" ] ; then
+			exit 1
+		fi
+	fi
+done

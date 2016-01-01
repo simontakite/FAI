@@ -1,0 +1,77 @@
+This is a set of changes to the Linux "rmt" utility
+to support transparent encryption.
+Data is encrypted before it is written to tape, and decrypted when read.
+We use no padding or salt, so the data size doesn't change.
+Tools that use rmt for remote tape access (such as dump, restore
+and tar) can manipulate encrypted data without modification.
+
+The symmetric cipher is currently hardwired as Blowfish.
+
+[...]
+
+Building ermt:
+- Ensure that openssl-0.9.7a or later is installed.
+- Configure and build the package, enabling ermt support:
+	./configure --enable-ermt
+	make
+  This will build an extra binary: rmt/ermt, the encrypting version.
+  If ermt fails to link because EVP_CIPHER_CTX_set_padding
+  is undefined, you must upgrade to openssl-0.9.7a or later.
+
+Run-time setup:
+- Create a user for remote tape access, which we will call "dump":
+	useradd -m dump
+- ermt reads the secret key from ".ermt.key".
+  Generate a random key in ~dump/.ermt.key:
+	su - dump
+	openssl rand -out .ermt.key 32
+	chmod 400 .ermt.key
+  Due to the way "openssl enc -kfile $file" reads the key file,
+  you should ensure that the key contains no \0 or \r or \n characters,
+  which would prematurely truncate the key length.
+- Protect the key: copy to many floppies, "od -x .ermt.key|lpr", etc.
+- Set up rsh access from root (or whoever you run dump as)
+  to dump@localhost:
+	# still running as user dump here
+	echo localhost root > .rhosts
+	chmod 400 .rhosts
+  Or use ssh if you prefer; details left as an exercise.
+- Check that it works: run "rsh localhost -l dump date" as root.
+- Copy the ermt binary you built above to ~dump,
+  and change dump's shell to ~dump/ermt.
+
+Backup usage: just dump remotely to localhost:
+
+	dump -0u -f dump@localhost:/dev/st0 /
+	restore -i -f dump@localhost:/dev/st0
+	# You can use GNU tar too
+
+If your device is doing hardware compression, it's best to turn
+it off, since encrypted data compresses very poorly.
+
+Emergency decrypting: if you need to restore a tape and
+don't have access to a host running ermt,
+you have two choices:
+- If you have a copy of the ermt binary, run it with the -d switch
+  to decrypt stdin to stdout:
+	dd if=/dev/st0 bs=10k |
+	(cd ~dump; ./ermt -d) |		# assuming ermt is in ~dump
+	restore -i -f -
+- If not, use the OpenSSL "openssl" command, which does the same thing:
+	dd if=/dev/st0 bs=10k |
+        openssl enc -d -kfile ~dump/.ermt.key -blowfish -nosalt -nopad |
+	restore -i -f -
+  Versions of OpenSSL before 0.9.7a don't understand -nopad,
+  so they won't work.
+
+How much does encryption slow down backups?
+In my tests, the network hop is the bottleneck:
+dumping unencrypted (i.e. standard rmt) to localhost is 38%
+slower than dumping directly to tape.
+Adding encryption makes no difference, which isn't surprising.
+
+Change log:
+	2003-04-08: added configure --enable-ermt, separate ermt binary
+	2003-04-06: Initial release
+
+-- Ken Lalonde <ken@globalremit.com>

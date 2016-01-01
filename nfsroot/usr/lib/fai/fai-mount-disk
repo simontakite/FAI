@@ -1,0 +1,85 @@
+#! /bin/bash
+
+# Copyright (c) 2002-2015 by Thomas Lange
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+fstab_mount() {
+
+    if [ $fstabcount -eq 1 ]; then
+
+        # save fstab
+        cp $FAI_ROOT/$fstabpart/etc/fstab /tmp
+        umount_local_disks
+        # mount according to fstab saved
+        mount2dir $FAI_ROOT /tmp/fstab 0 ro
+    fi
+    [ $fstabcount -eq 0 ] && echo "No /etc/fstab found"
+    [ $fstabcount -ge 2 ] && echo -e "Found multiple /etc/fstab files in : $fstablist\nUse mount2dir for mounting."
+}
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+mount_local_disks() {
+
+    # try to mount all local disk partitions containing a file system
+    local disk dev devname type
+    fstabcount=0
+    [ "$1" = "rw" ] && mountoption=$1
+
+    for disk in `ls /dev/disk/by-uuid/*`; do
+        type=$(blkid -sTYPE $disk)
+        [[ "$type" =~ "swap" ]] && continue
+        dev=$(readlink -e $disk)
+        devname=${dev##*/}
+        mkdir -p $FAI_ROOT/$devname
+        mount -o $mountoption $dev $FAI_ROOT/$devname
+
+        # look for btrfs subvolume
+        if [[ "$type" =~ "btrfs" ]]; then
+            subvol=$(btrfs sub list -a $FAI_ROOT/$devname|head -1)
+            subvol=${subvol#*path }
+            umount $FAI_ROOT/$devname
+            mount $dev -osubvol=$subvol $FAI_ROOT/$devname
+        fi
+
+        # \ && echo $partition mounted successfully
+        if [ -s $FAI_ROOT/$devname/etc/fstab ]; then
+            echo "/etc/fstab found in $dev"
+            fstabpart=$devname   # used in fstab_mount
+            fstablist="$fstablist $devname"
+            (( fstabcount += 1 ))
+        fi
+    done
+    mount | grep $FAI_ROOT
+}
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+umount_local_disks() {
+
+    # can be an extern script
+    local part
+    test -d $FAI_ROOT || return
+    for part in `grep $FAI_ROOT /proc/mounts | cut -d ' ' -f 2| sort -r`; do
+        umount $part
+    done
+    test -d $FAI_ROOT/ida && rmdir $FAI_ROOT/ida/*
+    test -d $FAI_ROOT/rd && rmdir $FAI_ROOT/rd/*
+    rmdir $FAI_ROOT/* 2>/dev/null
+    mountpoint -q $FAI_ROOT && umount $FAI_ROOT
+}
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# main program
+
+mountoption=ro
+dofstab=0
+
+while getopts ufw opt ; do
+      case "$opt" in
+        u) umount_local_disks ; exit ;;
+        w) mountoption=rw ;;
+        f) dofstab=1 ;;
+      esac
+done
+
+mount_local_disks
+if [ $dofstab -eq 1 ]; then
+    fstab_mount
+fi

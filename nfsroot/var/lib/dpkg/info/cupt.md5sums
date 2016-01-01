@@ -1,0 +1,12 @@
+68ecbdadbf8e7e60ae44ea90f4f8709e  usr/bin/cupt
+34c99d279b88d8b8fefe7665ad1ab31b  usr/share/doc/cupt/NEWS.Debian.gz
+e0f830a0cd373ee6fb2f1a30508ef18f  usr/share/doc/cupt/NEWS.gz
+9d7d44b1f53f6b8809f44580a0af9b9d  usr/share/doc/cupt/changelog.gz
+2fa239ae0ab8b06589465518e17166fe  usr/share/doc/cupt/copyright
+64616c69c5849e0576e20b272b99ec8a  usr/share/doc/cupt/functionalselectors.html
+e1d2e2b3f91137a351576d86b9387f6a  usr/share/doc/cupt/tutorial.html
+fbd1a1d78482f09f5e050e0e06e6e58d  usr/share/man/man1/cupt.1.gz
+367f51b624c69cfcdf89b95e6d289091  usr/share/man/man5/cupt.conf.5.gz
+be8c34a85bff5f848886e584b005d734  usr/share/man/man5/cupt_vs_apt.5.gz
+85fce05e79aed8d4cbc218db4d11e313  usr/share/man/man7/cupt_functionalselectors.7.gz
+5a9f99f19ded79b5a0546a93c8bd345a  usr/share/man/man7/cupt_tutorial.7.gz

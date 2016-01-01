@@ -1,0 +1,4 @@
+dump: embedded-library sbin/dump: zlib
+dump: embedded-library sbin/dump: bzip2
+dump: embedded-library sbin/restore: zlib
+dump: embedded-library sbin/restore: bzip2

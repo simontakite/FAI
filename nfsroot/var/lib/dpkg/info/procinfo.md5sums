@@ -1,0 +1,9 @@
+52c82360f4310202a139699371aae55f  usr/bin/procinfo
+35a6945b0b9bf044a4cc4f524056024b  usr/bin/socklist
+9c09a9f7e585512fdd8c3ad5cfdde76f  usr/bin/lsdev
+5500c9d68b9392e9516ab5044afefbe7  usr/share/man/man8/socklist.8.gz
+71768982f1ba0d031e7d2fb516b454a0  usr/share/man/man8/procinfo.8.gz
+bc81ac8c724167dcdb8f07dc73812969  usr/share/man/man8/lsdev.8.gz
+009a9fabc33bf807fcde501fd77b09c5  usr/share/doc/procinfo/README.Debian
+6d0c2e1fcda80abf656436a0a4ed6207  usr/share/doc/procinfo/changelog.Debian.gz
+04972e2f57a72ec192fa6196fe539d83  usr/share/doc/procinfo/copyright

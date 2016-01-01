@@ -1,0 +1,8 @@
+#!/bin/sh
+# A micro-version of setupcon with static configuration.
+printf '\033%%@' 
+setfont '/etc/console-setup/cached_Lat15-Fixed16.psf' 
+setfont '-m' '/etc/console-setup/cached_ISO-8859-15.acm' 
+kbd_mode '-a' 
+loadkeys '/etc/console-setup/cached_ISO-8859-15_del.kmap' 
+exit 0

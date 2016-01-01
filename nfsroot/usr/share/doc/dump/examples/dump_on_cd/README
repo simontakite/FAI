@@ -1,0 +1,53 @@
+                    Experimental dump to CDROMs
+                    ===========================
+
+Starting with dump/restore version 0.4b24 or later versions of 
+dump/restore you can dump to CDROMs.
+
+You need a (successfully installed) CD-writing software like
+  cdrecord (tested with versions 1.11a04 onwards)
+
+These scripts use the new switch ('V') to restore
+which signals a multi-volume (non-tape) medium like CDROMs
+
+I have used the shell scripts below to generate/verify the dump
+
+YOU MUST MODIFY these - especially
+
+- adapt FS to the filesystem to be dumped
+- UserExit to the path to the user exit function like UserInfo below
+- FiFo     to the path to a named pipe (better not on the same filesystem)
+- your cd device(s)  ( I have /dev/cdrom a symlink to /dev/sr0 and
+                              /dev/cdrw  a symlink to /dev/sr1 )
+- your path to cdrecord and
+- - cdrecord's dev parameter must be adapted to your CD burner
+- - cdrecord's fs (= input fifo size), use less than 64m if you
+    are short of memory
+- - cdrecord's speed parameter : this parameter not only depends on the
+    capabilities of your CD burner BUT also on the speed of your CPU !!!
+    With the dump -z6 compression on a 900 MHz Pentium III I had no problems
+    with speed=4 which is the maximum speed for my burner.
+    It looks as if at least speed=6 would be possible on a 900 MHz Pentium III.
+    If speed is to large, cdrecord's input fifo gets empty (as
+    shown by cdrecord) and then you have a buffer underrun.
+
+- replace the wayplay command with something which alerts you if you
+  have to change CDROMS
+
+- for restore or verification  replace /dev/cdrom by something
+  which applies for you (device for the CDreader)
+
+
+DON'T FORGET  to generate a boot-CD which has the 0.4b24 restore
+  or a newer version of restore on board
+
+I prefer timos_Rescue_Cd_Set-0.6.1  see  http://rescuecd.sourceforge.net
+
+
+Please Cc bug-reports to  jarausch@igpm.rwth-aachen.de
+
+-----------------------------------------------------------------
+This file and the scripts were slightly edited when the 
+Helmut Jarausch patch was integrated in dump-0.4b24.
+						Stelian.
+

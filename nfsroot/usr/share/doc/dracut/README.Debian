@@ -1,0 +1,13 @@
+dracut for Debian
+-----------------
+
+The module i18n for setting up the keyboard and the font is disabled in
+Debian. You cannot use the variables described in modules.d/10i18n/README.
+
+Instead, dracut uses the module 09console-setup which uses setupcon and
+is configured in the files /etc/default/keyboard (the keyboard) and
+/etc/default/console-setup (the font).  If you prefer to configure by
+Debconf, you can use dpkg-reconfigure keyboard-configuration and
+dpkg-reconfigure console-setup.
+
+ -- Thomas Lange <lange@debian.org>, Tue, 17 Jun 2014 16:56:20 +0200

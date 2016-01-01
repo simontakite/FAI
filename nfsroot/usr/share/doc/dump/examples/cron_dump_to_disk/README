@@ -1,0 +1,31 @@
+Here is how to use these backup scripts:
+
+1. Create a separate backup partition big enough to hold all the filesystems you want to backup + any changes. Preferably, get a big inexpensive ide drive, and dedicate it as a backup drive.
+
+2. Create the mount point for the partition as /backup (otherwise, modify the config parameters at the top of the scripts).
+
+3. Mount the partition read-write, cd into /backup, and extract the backupskel.tar.gz there. This will create the directory structure needed by the scripts.
+
+4. Set the partition to be mounted as read-only in your /etc/fstab. This will protect your precious backup from software crashes.
+
+5. Copy the backup scripts "backup" and "backup_rotate" to a suitable directory in cron's path; "/usr/bin" is a good location. alternatively, you can place them anywhere, and modify the crontab entries to match, or run it manually.
+
+6. Modify your /etc/crontab file to add these entries, and be sure to modify the times to suit your preferences, and the performance of your machine:
+
+----------%<---------------------------------%<--------------------------------
+
+# Perform Nightly Backup (nightly incremental + weekly full + monthly full)
+02 06 * * 1-6 root backup_rotate ; nice -1 backup inc
+02 06 * * sun root backup_rotate ; nice -1 backup full
+07 00 01 * * root backup_rotate monthly ; backup full nodumpdate
+
+----------%<---------------------------------%<--------------------------------
+
+Any questions? Send me and email to getnito@yahoo.com.
+
+And that is it. Have fun!
+
+--
+nito
+
+getnito@yahoo.com

@@ -1,0 +1,14 @@
+/.
+/usr
+/usr/lib
+/usr/lib/cupt3-0
+/usr/lib/cupt3-0/downloadmethods
+/usr/lib/cupt3-0/downloadmethods/libdebdelta.so
+/usr/lib/cupt3-0/downloadmethods/libfile.so
+/usr/lib/libcupt3.so.0
+/usr/share
+/usr/share/doc
+/usr/share/doc/libcupt3-0
+/usr/share/doc/libcupt3-0/copyright
+/usr/share/doc/libcupt3-0/NEWS.Debian.gz
+/usr/share/doc/libcupt3-0/changelog.gz

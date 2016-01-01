@@ -1,0 +1,60 @@
+#!/bin/bash
+#ident "@(#) get-dumpdata-to-cdrecord Time-stamp: <02/05/06 13:49:28 bav> "
+#******************************************************************
+# get-dumpdata-to-cdrecord
+#******************************************************************
+#                              Gerd Bavendiek bav@epost.de 02-05-02
+#
+# This script runs on the box which has the CD-Burner. It starts an
+# rsh on the box where dump is started and feeds the data to
+# cdrecord. You should have copied it to
+# PATH_TO_GET_DUMPDATA_TO_CDRECORD, see script dump-to-remote-cd.
+# 
+# You definitely may wish to customize the cdrecords arguments below !
+#
+# If rsh is not appropiate for you, change to ssh.
+#------------------------------------------------------------------
+
+CDRECORD_TESTMODE=""             # This means: burn !
+###CDRECORD_TESTMODE="-dummy"       # and this: not really ...
+CDRECORD_DEVICE="1,0"            # Run cdrecord --scanbus if in doubt
+CDRECORD_SPEED=2                 # Speed of your burner
+CDRECORD_BUFFERSIZE=16m          # Buffersize in MByte
+
+#------------------------------------------------------------------
+Usage()
+{
+   echo >&2 "Usage: `basename $0` -d <dump_host> -f <fifo_name>"
+   exit 1
+}
+
+CDRECORD_ARGLIST="-v $CDRECORD_TESTMODE dev=$CDRECORD_DEVICE speed=$CDRECORD_SPEED fs=$CDRECORD_BUFFERSIZE"
+
+while getopts "d:f:h" c; do
+  case $c in
+   d) # the dump host
+      DUMP_HOST=$OPTARG
+      ;;
+   f) # name of the fifo cdrecord has to read the data from
+      FIFO_NAME=$OPTARG
+      ;;
+   h) # help those who ask for help
+      Usage
+      ;;
+   '?') # any other switch
+      Usage
+      ;;
+  esac
+done
+
+if [ -z "$DUMP_HOST" -o -z "$FIFO_NAME" ]; then Usage; fi
+
+rsh $DUMP_HOST dd if=$FIFO_NAME | cdrecord $CDRECORD_ARGLIST -eject -pad -data -
+if [ $? -ne 0 ]; then
+   echo $0: `date '+%T'`: ERROR: Check cdrecords messages
+   exit 1
+fi
+
+# Local Variables:
+# rcpbuf-todo: ("/[root@kiki]/root/tools")
+# End:

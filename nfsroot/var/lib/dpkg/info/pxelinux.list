@@ -1,0 +1,14 @@
+/.
+/usr
+/usr/lib
+/usr/lib/PXELINUX
+/usr/lib/PXELINUX/pxelinux.0
+/usr/lib/PXELINUX/lpxelinux.0
+/usr/lib/PXELINUX/gpxelinux.0
+/usr/share
+/usr/share/doc
+/usr/share/doc/pxelinux
+/usr/share/doc/pxelinux/README.txt.gz
+/usr/share/doc/pxelinux/changelog.Debian.gz
+/usr/share/doc/pxelinux/changelog.gz
+/usr/share/doc/pxelinux/copyright

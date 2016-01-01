@@ -1,0 +1,71 @@
+Architectures: i386 amd64
+Components: koeln
+Date: Thu, 10 Dec 2015 20:49:22 UTC
+Description: FAI packages from author's repository
+Label: fai-project.org
+Origin: Original FAI archive
+Suite: jessie
+MD5Sum:
+ 563e239ad7dd9e7929a2e06cf4ceb215             4490 Contents-amd64.bz2
+ 2908bb2d840a4f12d6ac53efa319adb2             4855 Contents-amd64.gz
+ 344ce830dbc2eb153eda36bad1d1d25d             4508 Contents-amd64.xz
+ 563e239ad7dd9e7929a2e06cf4ceb215             4490 Contents-i386.bz2
+ 2908bb2d840a4f12d6ac53efa319adb2             4855 Contents-i386.gz
+ 344ce830dbc2eb153eda36bad1d1d25d             4508 Contents-i386.xz
+ 06a484244202c1f2bc39d29c4a9f231f             6747 Release
+ bccf4004dfc220f381c77a8417d334f9            19756 koeln/binary-amd64/Packages
+ 4494cb499bb1beb298bb780dd3ec6e15             5935 koeln/binary-amd64/Packages.bz2
+ 76c0004292f88f5f080c06a8e4614ca4             5848 koeln/binary-amd64/Packages.gz
+ 90e064abfb79768a94219a6d0025a7b6             5440 koeln/binary-amd64/Packages.xz
+ f6f6eb0e6b112d3fbf040962a2ab6771            19753 koeln/binary-i386/Packages
+ 187700e53ffda7f93a0554bd5016e2e0             5934 koeln/binary-i386/Packages.bz2
+ 9c92fb73e93fa12a903edc0064fbfcb5             5874 koeln/binary-i386/Packages.gz
+ 3180c397d34c76f48bb479c4405d704e             5448 koeln/binary-i386/Packages.xz
+SHA1:
+ 9b45baad3b9b8d32f763cf578119fb8fb160cc98             4490 Contents-amd64.bz2
+ 57108fac1cf67492bb2ec9662ddd0a7f353a6854             4855 Contents-amd64.gz
+ d3eabbd8305d6ae6731efb30797d7a263378d22e             4508 Contents-amd64.xz
+ 9b45baad3b9b8d32f763cf578119fb8fb160cc98             4490 Contents-i386.bz2
+ 57108fac1cf67492bb2ec9662ddd0a7f353a6854             4855 Contents-i386.gz
+ d3eabbd8305d6ae6731efb30797d7a263378d22e             4508 Contents-i386.xz
+ dbba388ba16c260c1001084bb634fd06e221da89             6747 Release
+ 4033e5a887bbebcb8019cba18274ae2bb5a0ec82            19756 koeln/binary-amd64/Packages
+ 0fed8b56d6c289b591d03ccd442b0e5cec8714c3             5935 koeln/binary-amd64/Packages.bz2
+ 3a6fece8e4da282e3b74d2c79f0d58eeba8304a5             5848 koeln/binary-amd64/Packages.gz
+ 1a65279f7009e2ff411af92efe21c141ae4ce041             5440 koeln/binary-amd64/Packages.xz
+ 22bfcb679d072ce989ac4ea5827c0c2031583f7a            19753 koeln/binary-i386/Packages
+ ae7075f3a8f453cab2cb2b8e60a666addac403a3             5934 koeln/binary-i386/Packages.bz2
+ 3bee1658646b0649570ce5511b5e2b56a829498b             5874 koeln/binary-i386/Packages.gz
+ 4a968c713321d367e32de1246f32401de7731197             5448 koeln/binary-i386/Packages.xz
+SHA256:
+ ec1fb9c8f62582a9d8dde5aa201eb36f49c953024009c7b0c5ddebe0586c951c             4490 Contents-amd64.bz2
+ 51966824c27460f31c51947655c2bc236fc43c2baa9305f44974127b1a33d159             4855 Contents-amd64.gz
+ 44e3d186960a7ad563e60c660bc942dee8866d742b38ebc472ddd9b761b6eca3             4508 Contents-amd64.xz
+ ec1fb9c8f62582a9d8dde5aa201eb36f49c953024009c7b0c5ddebe0586c951c             4490 Contents-i386.bz2
+ 51966824c27460f31c51947655c2bc236fc43c2baa9305f44974127b1a33d159             4855 Contents-i386.gz
+ 44e3d186960a7ad563e60c660bc942dee8866d742b38ebc472ddd9b761b6eca3             4508 Contents-i386.xz
+ 981ea70e58ef09026215f4decc6f5b70a3a3f391275f4f552007ae7fbaf1137a             6747 Release
+ 08e7c8010ad41cb6e64db6af3607ed3ae89007d5bc0dc31fec7346d101f7bd14            19756 koeln/binary-amd64/Packages
+ 60cacc82b97071723025dd73010af82f52b110b045f8a1643c70c6c831757c3a             5935 koeln/binary-amd64/Packages.bz2
+ 248258be46d7d64d84a1323f2b979eb679c72c7cdc7704878666f900ab398594             5848 koeln/binary-amd64/Packages.gz
+ 63114ce7bdbdd3a458b9c8603c062090e07c546d6fbf460647341c8c8d9e1944             5440 koeln/binary-amd64/Packages.xz
+ 84b5cf39556983d9e9d03ddac74b30b0bf646880e4b541a0e62e18ebd6f542f0            19753 koeln/binary-i386/Packages
+ 33d3219e1608a9eda946f75a1cb179afcad5ef29bb559e6fcf28d73af114676a             5934 koeln/binary-i386/Packages.bz2
+ f0427191bca71cf9c310f60be2cfe2a85c9fe0a3b2128b986295e2dac5ade9f4             5874 koeln/binary-i386/Packages.gz
+ be67059e41765350503657316b41d50b7b463856fd59723f40835f779d74d40b             5448 koeln/binary-i386/Packages.xz
+SHA512:
+ 5a4cae9bd3144274be05449da932ad79427f9cf9416419f0543ac4d863a3e7740634db238d2dff68949510df28f8258e370b1448cf977f5aacef5e730cd19fad             4490 Contents-amd64.bz2
+ 31aa5826232714dc4e3e84fbdc6e78a2f507cc0e91c05a9c6e598eec4e9f5fbfd0e33c322a0d391ea7a5925ad6589265ac89a7387d981f00971500ebdbe42360             4855 Contents-amd64.gz
+ def56da1a1d736edb17bf245bf6674fc04dec3f1830ce4e8552d0b6e076aed4d1ecb5154e3ac6c3df02de0fe8edc1deca2e64d3a86c3d43c620fb43502b9508f             4508 Contents-amd64.xz
+ 5a4cae9bd3144274be05449da932ad79427f9cf9416419f0543ac4d863a3e7740634db238d2dff68949510df28f8258e370b1448cf977f5aacef5e730cd19fad             4490 Contents-i386.bz2
+ 31aa5826232714dc4e3e84fbdc6e78a2f507cc0e91c05a9c6e598eec4e9f5fbfd0e33c322a0d391ea7a5925ad6589265ac89a7387d981f00971500ebdbe42360             4855 Contents-i386.gz
+ def56da1a1d736edb17bf245bf6674fc04dec3f1830ce4e8552d0b6e076aed4d1ecb5154e3ac6c3df02de0fe8edc1deca2e64d3a86c3d43c620fb43502b9508f             4508 Contents-i386.xz
+ 77dbbd9fa7d97e4aab419610476b911137bb32af16c0cf3f43874f152bfdee23cc03fc2e36ddab75853abbfe165e2eaa1b09fd242e754d3d5f959a30c6043bb7             6747 Release
+ 9ac369b398ffb9579d27fb08edb206794ccc7263f46f8243bf4c6a1e8f71d75624f2e76d1b307b19e94a11d5d0601b63683033717a89ef18d12c36454db69e5f            19756 koeln/binary-amd64/Packages
+ 6ebc32541d4ec080bed03994149a0beb50577ba0b028c0f5f0df8b6e476b0deda9dec2bd03a1be505d151e2218a4a6078813ac4d576a402c714711c526b1ae28             5935 koeln/binary-amd64/Packages.bz2
+ 948cbf47a0ba80b931a3591e8141f38a9669a72cd34b2f80f0b25b26844c62ac33e2de593827a28c81a15e9b3c86da3bf7b2e0764622cad1d66173663290552d             5848 koeln/binary-amd64/Packages.gz
+ 1fbc1ca7b269d012b85c435d6b6509ea03b250bb28176dff291845b72b48b964d446721bd6694f9881ef102df8b247ba86afbf0f0d505db924202160a0db2daa             5440 koeln/binary-amd64/Packages.xz
+ 51101b51c9de2268f1cc639a552c4e03909f447216ab6547f7698e0a5a6f8d555dae12dfda3c5ee8cae1ab6dd35228642b829a509d0babcce0630312b7b52728            19753 koeln/binary-i386/Packages
+ ae9bc05e35e6d98ed49895130bce324b0f26124094f5d8e1d8a060264004e9c6b80702031b7feb2bb60e619b83a0a94b723592c064b671c2216e255bc912aad2             5934 koeln/binary-i386/Packages.bz2
+ b8793730775510a17b80e4cdaf904ed59cce446cced7a324a92163424504e228927347e42b613e2365bb466b52b2e1df54a34668b36aa5e82402b238e1d5ccfc             5874 koeln/binary-i386/Packages.gz
+ 90e5ae295a556741a0e7d13bb71e2eca7de3b413594a5b6376a0f9517f452e0d8cf372437397d2c05c31cc0e2b48366cc774d499a766806c9693165f62aaad36             5448 koeln/binary-i386/Packages.xz

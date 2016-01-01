@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+	purge)
+		rm -rf /var/lib/cupt
+		rm -f /var/log/cupt.log*
+		;;
+esac
+
+# Automatically added by dh_makeshlibs
+if [ "$1" = "remove" ]; then
+	ldconfig
+fi
+# End automatically added section
+

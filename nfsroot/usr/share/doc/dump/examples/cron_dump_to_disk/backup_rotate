@@ -1,0 +1,125 @@
+#!/bin/bash
+
+###
+ # Copyright (C) 2001  Eugenio Diaz <getnito@yahoo.com>
+ #
+ # Redistribution and use in source and binary forms, with or without
+ # modification, are permitted provided that the following conditions
+ # are met:
+ #
+ # 1. Redistributions of source code must retain the above copyright
+ #    notice, this list of conditions and the following disclaimer.
+ # 2. Redistributions in binary form must reproduce the above
+ #    copyright notice, this list of conditions and the following
+ #    disclaimer in the documentation and/or other materials provided
+ #    with the distribution.
+ # 3. Neither the name of the University nor the names of its
+ #    contributors may be used to endorse or promote products derived
+ #    from this software without specific prior written permission.
+ #
+ # THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS''
+ # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+ # TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ # PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS
+ # OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ # SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+ # USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+ # OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ # SUCH DAMAGE.
+ #
+ ##
+ #
+ # This script will redirect the backup directory to implement desired
+ # backup schedules.
+ #
+ # We will use just a seven day format where we just move a link that
+ # represents the backup directory, to point to the day of the week.
+ ##
+
+
+#
+# Configuration Parameters
+#
+
+if [ "$1" = "monthly" ]; then
+   REALDIR="monthly"
+else
+   REALDIR=`date +%A`
+fi
+
+BACKUPPART=${BACKUPPART:-"/backup"}
+BACKUPDIR=${BACKUPDIR:-"current"}
+
+echo "### Start of Backup Rotation ###"
+echo "Using backup partition: $BACKUPPART"
+
+echo -n "Remounting backup partition read-write ... "
+if ( mount $BACKUPPART -o remount,rw &> /dev/null ) then
+   echo "done."
+else
+   echo "failure!"
+   echo "There were problems remounting $BACKUPPART in read-write mode!"
+   echo "Rotation not made!"
+   echo "### End of Backup Rotation ###"
+   exit 1
+fi
+
+echo -n "Checking that no directory named \"$BACKUPDIR\" exists ... "
+if [ -d $BACKUPPART/$BACKUPDIR -a ! -L $BACKUPPART/$BACKUPDIR ]; then
+   echo "failure!"
+   echo "Directory \"$BACKUPDIR\" exists. Can't create link!"
+   echo "Rotation not made!"
+
+   echo -n "Remounting backup partition read-only ... "
+   if ( mount $BACKUPPART -o remount,ro &> /dev/null ) then
+      echo "done."
+   else
+      echo "failure!"
+      echo "There were problems remounting $BACKUPPART in read-only mode!"
+      echo "### End of Backup Rotation ###"
+      exit 1
+   fi
+   echo "### End of Backup Rotation ###"
+   exit 1
+else
+   echo "done."
+fi
+
+cd $BACKUPPART
+
+echo -n "Creating link: $BACKUPDIR --> $REALDIR ... "
+if ( ln -snf $REALDIR $BACKUPDIR &> /dev/null ) then
+   echo "done."
+else
+   echo "failure!"
+   echo "There were problems creating link!"
+   echo "Rotation not made!"
+
+   echo -n "Remounting backup partition read-only ... "
+   if ( mount $BACKUPPART -o remount,ro &> /dev/null ) then
+      echo "done."
+   else
+      echo "failure!"
+      echo "There were problems remounting $BACKUPPART in read-only mode!"
+      echo "### End of Backup Rotation ###"
+      exit 1
+   fi
+   echo "### End of Backup Rotation ###"
+   exit 1
+fi
+
+echo -n "Remounting backup partition read-only ... "
+if ( mount $BACKUPPART -o remount,ro &> /dev/null ) then
+   echo "done."
+else
+   echo "failure!"
+   echo "There were problems remounting $BACKUPPART in read-only mode!"
+   echo "### End of Backup Rotation ###"
+   exit 1
+fi
+echo "### End of Backup Rotation ###"
+
+## end of script

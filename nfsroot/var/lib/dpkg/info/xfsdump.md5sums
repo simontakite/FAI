@@ -1,0 +1,14 @@
+fb8f06d4af4a11fcaf83858be99d7b58  sbin/xfsdump
+515853148e968b3f204298e44fcc8a27  sbin/xfsrestore
+512d011038485324f946bfd1750a3629  usr/sbin/xfsinvutil
+13474eeb6c6693ba1b6a2b98d90751be  usr/share/doc/xfsdump/CHANGES.gz
+69912f4dee40f404f2dc78c10beabf69  usr/share/doc/xfsdump/README
+b864aa717c40e44009a1bfff87b633f2  usr/share/doc/xfsdump/README.xfsdump.gz
+54cc0d571421656fc7ef4b953b99c6e0  usr/share/doc/xfsdump/changelog.Debian.gz
+54cc0d571421656fc7ef4b953b99c6e0  usr/share/doc/xfsdump/changelog.gz
+d500777205ed95dced256d75054db208  usr/share/doc/xfsdump/copyright
+098212797e3d6ecaaaec9180f8606dc0  usr/share/locale/de/LC_MESSAGES/xfsdump.mo
+16ce7efa93206c290bf63b7e3ad2a3b8  usr/share/locale/pl/LC_MESSAGES/xfsdump.mo
+82bc99bbb6884bc9997ff6f01c80968a  usr/share/man/man8/xfsdump.8.gz
+a9b5659aa9dac4c743dc8ecd61c315e4  usr/share/man/man8/xfsinvutil.8.gz
+cf667117db8ef35dc9baf25c71db2d84  usr/share/man/man8/xfsrestore.8.gz

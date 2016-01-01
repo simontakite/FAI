@@ -1,0 +1,44 @@
+#!/bin/bash
+# This script dumps the specified Filesystem via dump on a CD/DVD
+# CD_CAPACITY defines the capacity in MB per CD
+# The script for the next volume is passed via the -F option of dump
+# At least for my DVD-Recorder (a PHILIPS DVR-A03) it is necessary
+# to define the tracksize for the next track before the DVD is written.
+# This is done via the -tsize option of cdrecord. Since tsize takes its
+# arguments in Bytes, the shell cannot compute the value correctly
+# anymore (value too high), so I use bc.
+
+# !!! If you plan to write DVD's with other sizes, please correct the
+# CD_CAPACITY in the dump_userexit_DVD script, too !!!
+
+COMPRESSION_LEVEL=2
+RECORD_BIN="/usr/bin/dvdrecord dev=0,0,0 fs=64M speed=2 "
+EXITSCRIPT="/root/bin/dvd_dump_userexit"
+FILESYSTEM="/home"
+LEVEL=0
+LABEL="`date -I`"
+CD_CAPACITY=4300
+TSIZE="$(echo "$CD_CAPACITY*1024*1024" | bc -l )"
+BSIZE="$(echo "$CD_CAPACITY*1024" | bc -l )"
+FIFO="/tmp/dump.fifo"
+DUMP_BIN="/usr/sbin/dump -z$COMPRESSION_LEVEL -b64 -B$BSIZE -F $EXITSCRIPT -$LEVEL -L $LABEL -f $FIFO $FILESYSTEM"
+
+rm -f $FIFO
+mkfifo $FIFO
+ANSWER=""
+while [ "$ANSWER" != "j" ] ; do  
+	read -p "Ist die DVD No. 1 eingelegt? (j/n)" ANSWER
+	if [ "$ANSWER" == "j" ] ; then
+		$RECORD_BIN -blank=fast
+		$RECORD_BIN -eject -dao -pad -tsize=$TSIZE -data $FIFO &
+		$DUMP_BIN 
+		rm -f $FIFO
+		exit 0
+	elif [ "$ANSWER" == "n" ] ; then
+		EXIT=""
+		read -p "Wollen Sie abbrechen? (j/n)" EXIT
+		if [ "$EXIT" == "j" ] ; then
+			exit 1
+		fi
+	fi
+done

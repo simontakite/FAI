@@ -1,0 +1,17 @@
+$Id: KNOWNBUGS,v 1.5 1999/11/21 00:17:12 tiniou Exp $
+
+Known bugs and limitations of the dump/restore port
+===================================================
+
+1.	I have tried to minimize changes in the BSD source and some parts
+	may look ugly.  dump/tape.c is really awfull but this is pure BSD
+	code :-)  Maybe, I should replace it with a simpler and cleaner
+	version.
+
+2.	Kerberos mode is _NOT_ tested.
+
+3.	Some users related possible problems when dumping
+	active (mounted) filesystems. The problems are reported as
+	lseek and read error messages (with a negative count). If
+	you encounter this kind of problems, please report them
+	to the author.

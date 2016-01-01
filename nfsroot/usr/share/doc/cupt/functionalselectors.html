@@ -1,0 +1,656 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<STYLE>body{margin:2em;}</STYLE>
+<META NAME="generator" CONTENT="http://txt2tags.org">
+<TITLE>Functional selectors in Cupt</TITLE>
+</HEAD><BODY BGCOLOR="white" TEXT="black">
+<CENTER>
+<H1>Functional selectors in Cupt</H1>
+<FONT SIZE="4"><I>Eugene V. Lyubimkin</I></FONT><BR>
+<FONT SIZE="4">20141019</FONT>
+</CENTER>
+
+<P></P>
+<HR NOSHADE SIZE=1>
+<P></P>
+
+  <UL>
+  <LI><A HREF="#toc1">AIM</A>
+  <LI><A HREF="#toc2">SYNTAX</A>
+  <LI><A HREF="#toc3">FUNCTION REFERENCE</A>
+    <UL>
+    <LI><A HREF="#toc4">Logic functions</A>
+    <LI><A HREF="#toc5">Package property functions</A>
+    <LI><A HREF="#toc6">Common version property functions</A>
+      <UL>
+      <LI><A HREF="#toc7">release-related functions</A>
+      </UL>
+    <LI><A HREF="#toc8">Binary version property functions</A>
+    <LI><A HREF="#toc9">Source version property functions</A>
+    <LI><A HREF="#toc10">Binary relation functions</A>
+      <UL>
+      <LI><A HREF="#toc11">forward dependencies</A>
+      <LI><A HREF="#toc12">reverse dependencies</A>
+      </UL>
+    <LI><A HREF="#toc13">Source relation functions</A>
+      <UL>
+      <LI><A HREF="#toc14">forward dependencies</A>
+      <LI><A HREF="#toc15">reverse dependencies</A>
+      </UL>
+    <LI><A HREF="#toc16">Metafunctions</A>
+      <UL>
+      <LI><A HREF="#toc17">defining functions</A>
+      <LI><A HREF="#toc18">recursing</A>
+      <LI><A HREF="#toc19">mapping</A>
+      </UL>
+    <LI><A HREF="#toc20">Miscellaneous</A>
+    </UL>
+  </UL>
+
+<P></P>
+<HR NOSHADE SIZE=1>
+<P></P>
+<P>
+
+</P>
+
+<A NAME="toc1"></A>
+<H1>AIM</H1>
+
+<P>
+Functional selectors are used for fine-grained selection of versions. While
+standard mechanisms provide a way to select versions by package name, version
+string and/or distribution, functional selectors embed a microlanguage to
+select versions by their various properties.
+</P>
+
+<A NAME="toc2"></A>
+<H1>SYNTAX</H1>
+
+<P>
+Functional selector expression (FSE) consists of <B>function name</B> and <B>list of arguments</B>:
+</P>
+<P>
+'<I>function_name</I><CODE>(</CODE><I>argument1</I>, <I>argument2</I>, ... <I>argumentN</I><CODE>)</CODE>'
+</P>
+<P>
+Every argument can be a FSE itself or a string. Arguments are separated by the
+comma (<CODE>,</CODE>).  Additional whitespace characters (space, tab, newline) are
+allowed (and ignored by parser) anywhere except between the function name and
+the opening bracket.
+</P>
+<P>
+If the argument is a string and contains commas or round brackets, the argument
+should be quoted by placing the <CODE>/</CODE> character around it
+('<CODE>/</CODE><I>argument</I><CODE>/</CODE>').
+</P>
+<P>
+If the function receives no arguments, arguments bracked may be omitted:
+'<I>function_name</I>' is an equivalent to '<I>function_name</I><CODE>()</CODE>'.
+</P>
+<P>
+The expression '<I>argument1</I> <CODE>&amp;</CODE> <I>argument2</I> <CODE>&amp;</CODE> ... <CODE>&amp;</CODE>
+<I>argumentN</I>' is a special short form for '<CODE>and(</CODE><I>argument1</I>,
+<I>argument2</I>, ...
+<I>argumentN</I><CODE>)</CODE>'. Similarly, the expression '<I>argument1</I> <CODE>|</CODE>
+<I>argument2</I> <CODE>|</CODE> ... <CODE>|</CODE> <I>argumentN</I>'
+is a special short form for '<CODE>or(</CODE><I>argument1</I>, <I>argument2</I>, ...
+<I>argumentN</I><CODE>)</CODE>'
+</P>
+
+<A NAME="toc3"></A>
+<H1>FUNCTION REFERENCE</H1>
+
+<A NAME="toc4"></A>
+<H2>Logic functions</H2>
+
+<P>
+Receive FSEs as arguments.
+</P>
+
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Function name and arguments</TH>
+<TH>Argument count</TH>
+<TH>Returns versions which...</TH>
+</TR>
+<TR>
+<TD><CODE>and(</CODE><I>fse1</I>, <I>fse2</I>, ... <I>fseN</I><CODE>)</CODE></TD>
+<TD>≥ 1</TD>
+<TD>satisfy all of the <I>fse1</I>..<I>fseN</I></TD>
+</TR>
+<TR>
+<TD><CODE>or(</CODE><I>fse1</I>, <I>fse2</I>, ... <I>fseN</I><CODE>)</CODE></TD>
+<TD>≥ 1</TD>
+<TD>satisfy any of the <I>fse1</I>..<I>fseN</I></TD>
+</TR>
+<TR>
+<TD><CODE>not(</CODE><I>fse</I><CODE>)</CODE></TD>
+<TD>1</TD>
+<TD>don't satisfy <I>fse</I></TD>
+</TR>
+<TR>
+<TD><CODE>xor(</CODE><I>fse1</I>, <I>fse2</I><CODE>)</CODE></TD>
+<TD>2</TD>
+<TD>satisfy either <I>fse1</I> or <I>fse2</I> but not both</TD>
+</TR>
+</TABLE>
+
+<A NAME="toc5"></A>
+<H2>Package property functions</H2>
+
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Function name and arguments</TH>
+<TH>Short alias</TH>
+<TH>Returns versions which...</TH>
+<TH>Notes</TH>
+</TR>
+<TR>
+<TD><CODE>package:name(</CODE><I>regex</I><CODE>)</CODE></TD>
+<TD><CODE>Pn</CODE></TD>
+<TD>package name matches <I>regex</I></TD>
+</TR>
+<TR>
+<TD><CODE>package:installed()</CODE></TD>
+<TD><CODE>Pi</CODE></TD>
+<TD>belong to to installed packages</TD>
+<TD>applies only to binary versions</TD>
+</TR>
+<TR>
+<TD><CODE>package:automatically-installed()</CODE></TD>
+<TD><CODE>Pai</CODE></TD>
+<TD>belong to automatically installed packages</TD>
+<TD>applies only to binary versions</TD>
+</TR>
+</TABLE>
+
+<A NAME="toc6"></A>
+<H2>Common version property functions</H2>
+
+<P>
+Apply to source and binary versions.
+</P>
+
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Function name and arguments</TH>
+<TH>Short alias</TH>
+<TH>Returns versions which...</TH>
+</TR>
+<TR>
+<TD><CODE>version(</CODE><I>regex</I><CODE>)</CODE></TD>
+<TD><CODE>v</CODE></TD>
+<TD>version string matches <I>regex</I></TD>
+</TR>
+<TR>
+<TD><CODE>maintainer(</CODE><I>regex</I><CODE>)</CODE></TD>
+<TD><CODE>m</CODE></TD>
+<TD>maintainer matches <I>regex</I></TD>
+</TR>
+<TR>
+<TD><CODE>priority(</CODE><I>regex</I><CODE>)</CODE></TD>
+<TD><CODE>p</CODE></TD>
+<TD>priority matches <I>regex</I></TD>
+</TR>
+<TR>
+<TD><CODE>section(</CODE><I>regex</I><CODE>)</CODE></TD>
+<TD><CODE>s</CODE></TD>
+<TD>section matches <I>regex</I></TD>
+</TR>
+<TR>
+<TD><CODE>trusted()</CODE></TD>
+<TD><CODE>t</CODE></TD>
+<TD>come from at least one release with a valid cryptographic signature</TD>
+</TR>
+<TR>
+<TD><CODE>field(</CODE><I>field_name</I>, <I>regex</I><CODE>)</CODE></TD>
+<TD><CODE>f</CODE></TD>
+<TD>value¹ of the non-standard (not recognized by Cupt) field <I>field_name</I> matches <I>regex</I></TD>
+</TR>
+</TABLE>
+
+<P>
+¹If the version does not contain a field <I>field_name</I>, its value is assumed being empty string; and it can still match if regular expression matches empty string.
+</P>
+
+<A NAME="toc7"></A>
+<H3>release-related functions</H3>
+
+<P>
+Functions from this family receive one string argument (<I>regex</I>) and return
+versions which come from at least one release where <I>property</I> (see the
+following table) matches the regular expression <I>regex</I>.
+</P>
+
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Function name</TH>
+<TH>Short alias</TH>
+<TH><I>Property</I></TH>
+</TR>
+<TR>
+<TD><CODE>release:archive</CODE></TD>
+<TD><CODE>Ra</CODE></TD>
+<TD>archive</TD>
+</TR>
+<TR>
+<TD><CODE>release:codename</CODE></TD>
+<TD><CODE>Rn</CODE></TD>
+<TD>codename</TD>
+</TR>
+<TR>
+<TD><CODE>release:component</CODE></TD>
+<TD><CODE>Rc</CODE></TD>
+<TD>component</TD>
+</TR>
+<TR>
+<TD><CODE>release:version</CODE></TD>
+<TD><CODE>Rv</CODE></TD>
+<TD>version</TD>
+</TR>
+<TR>
+<TD><CODE>release:vendor</CODE></TD>
+<TD><CODE>Ro</CODE></TD>
+<TD>vendor</TD>
+</TR>
+<TR>
+<TD><CODE>release:origin</CODE></TD>
+<TD><CODE>Ru</CODE></TD>
+<TD>origin (base URI)</TD>
+</TR>
+</TABLE>
+
+<A NAME="toc8"></A>
+<H2>Binary version property functions</H2>
+
+<P>
+Apply only to binary versions.
+</P>
+
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Function name and arguments</TH>
+<TH>Short alias</TH>
+<TH>Returns versions which...</TH>
+</TR>
+<TR>
+<TD><CODE>source-package(</CODE><I>regex</I><CODE>)</CODE></TD>
+<TD><CODE>sp</CODE></TD>
+<TD>source package matches <I>regex</I></TD>
+</TR>
+<TR>
+<TD><CODE>source-version(</CODE><I>regex</I><CODE>)</CODE></TD>
+<TD><CODE>sv</CODE></TD>
+<TD>source version string matches <I>regex</I></TD>
+</TR>
+<TR>
+<TD><CODE>essential()</CODE></TD>
+<TD><CODE>e</CODE></TD>
+<TD>have 'Essential' flag set</TD>
+</TR>
+<TR>
+<TD><CODE>installed()</CODE></TD>
+<TD><CODE>i</CODE></TD>
+<TD>are installed in the system</TD>
+</TR>
+<TR>
+<TD><CODE>description(</CODE><I>regex</I><CODE>)</CODE></TD>
+<TD><CODE>d</CODE></TD>
+<TD>description matches <I>regex</I></TD>
+</TR>
+<TR>
+<TD><CODE>provides(</CODE><I>regex</I><CODE>)</CODE></TD>
+<TD><CODE>o</CODE></TD>
+<TD>provides at least one virtual package which matches <I>regex</I></TD>
+</TR>
+</TABLE>
+
+<A NAME="toc9"></A>
+<H2>Source version property functions</H2>
+
+<P>
+Apply only to source versions.
+</P>
+
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Function name and arguments</TH>
+<TH>Short alias</TH>
+<TH>Returns versions which...</TH>
+</TR>
+<TR>
+<TD><CODE>uploaders(</CODE><I>regex</I><CODE>)</CODE></TD>
+<TD><CODE>u</CODE></TD>
+<TD>have at least one uploader which matches <I>regex</I></TD>
+</TR>
+</TABLE>
+
+<A NAME="toc10"></A>
+<H2>Binary relation functions</H2>
+
+<P>
+Apply only to binary versions.
+</P>
+
+<A NAME="toc11"></A>
+<H3>forward dependencies</H3>
+
+<P>
+Functions from this family receive one FSE-argument (<I>fse</I>) and return all versions
+which satisfy the dependency of type <I>relation type</I> for <I>fse</I> (see the following table).
+</P>
+
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Function name</TH>
+<TH>Short alias</TH>
+<TH><I>Relation type</I></TH>
+</TR>
+<TR>
+<TD><CODE>pre-depends</CODE></TD>
+<TD><CODE>Ypd</CODE></TD>
+<TD>Pre-Depends</TD>
+</TR>
+<TR>
+<TD><CODE>depends</CODE></TD>
+<TD><CODE>Yd</CODE></TD>
+<TD>Depends</TD>
+</TR>
+<TR>
+<TD><CODE>recommends</CODE></TD>
+<TD><CODE>Yr</CODE></TD>
+<TD>Recommends</TD>
+</TR>
+<TR>
+<TD><CODE>suggests</CODE></TD>
+<TD><CODE>Ys</CODE></TD>
+<TD>Suggests</TD>
+</TR>
+<TR>
+<TD><CODE>enhances</CODE></TD>
+<TD><CODE>Ye</CODE></TD>
+<TD>Enhances</TD>
+</TR>
+<TR>
+<TD><CODE>conflicts</CODE></TD>
+<TD><CODE>Yc</CODE></TD>
+<TD>Conflicts</TD>
+</TR>
+<TR>
+<TD><CODE>breaks</CODE></TD>
+<TD><CODE>Yb</CODE></TD>
+<TD>Breaks</TD>
+</TR>
+<TR>
+<TD><CODE>replaces</CODE></TD>
+<TD><CODE>Yrp</CODE></TD>
+<TD>Replaces</TD>
+</TR>
+</TABLE>
+
+<A NAME="toc12"></A>
+<H3>reverse dependencies</H3>
+
+<P>
+Functions from this family receive one FSE-argument (<I>fse</I>) and return all
+versions for which at least one version from <I>fse</I> satisfies the dependency
+of type <I>relation type</I> (see the following table).
+</P>
+
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Function name</TH>
+<TH>Short alias</TH>
+<TH><I>Relation type</I></TH>
+</TR>
+<TR>
+<TD><CODE>reverse-pre-depends</CODE></TD>
+<TD><CODE>YRpd</CODE></TD>
+<TD>Pre-Depends</TD>
+</TR>
+<TR>
+<TD><CODE>reverse-depends</CODE></TD>
+<TD><CODE>YRd</CODE></TD>
+<TD>Depends</TD>
+</TR>
+<TR>
+<TD><CODE>reverse-recommends</CODE></TD>
+<TD><CODE>YRr</CODE></TD>
+<TD>Recommends</TD>
+</TR>
+<TR>
+<TD><CODE>reverse-suggests</CODE></TD>
+<TD><CODE>YRs</CODE></TD>
+<TD>Suggests</TD>
+</TR>
+<TR>
+<TD><CODE>reverse-enhances</CODE></TD>
+<TD><CODE>YRe</CODE></TD>
+<TD>Enhances</TD>
+</TR>
+<TR>
+<TD><CODE>reverse-conflicts</CODE></TD>
+<TD><CODE>YRc</CODE></TD>
+<TD>Conflicts</TD>
+</TR>
+<TR>
+<TD><CODE>reverse-breaks</CODE></TD>
+<TD><CODE>YRb</CODE></TD>
+<TD>Breaks</TD>
+</TR>
+<TR>
+<TD><CODE>reverse-replaces</CODE></TD>
+<TD><CODE>YRrp</CODE></TD>
+<TD>Replaces</TD>
+</TR>
+</TABLE>
+
+<A NAME="toc13"></A>
+<H2>Source relation functions</H2>
+
+<A NAME="toc14"></A>
+<H3>forward dependencies</H3>
+
+<P>
+Apply only to source versions and return binary versions.
+</P>
+<P>
+Functions from this family receive one FSE-argument (<I>fse</I>) and return all
+versions which satisfy the build-time dependency of type <I>relation type</I> for
+<I>fse</I> (see the following table).
+</P>
+
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Function name</TH>
+<TH>Short alias</TH>
+<TH><I>Relation type</I></TH>
+</TR>
+<TR>
+<TD><CODE>build-depends</CODE></TD>
+<TD><CODE>Zbd</CODE></TD>
+<TD>Build-Depends</TD>
+</TR>
+<TR>
+<TD><CODE>build-depends-indep</CODE></TD>
+<TD><CODE>Zbdi</CODE></TD>
+<TD>Build-Depends-Indep</TD>
+</TR>
+<TR>
+<TD><CODE>build-conflicts</CODE></TD>
+<TD><CODE>Zbc</CODE></TD>
+<TD>Build-Conflicts</TD>
+</TR>
+<TR>
+<TD><CODE>build-conflicts-indep</CODE></TD>
+<TD><CODE>Zbci</CODE></TD>
+<TD>Build-Conflicts-Indep</TD>
+</TR>
+</TABLE>
+
+<A NAME="toc15"></A>
+<H3>reverse dependencies</H3>
+
+<P>
+Apply only to binary versions and return source versions.
+</P>
+<P>
+Functions from this family receive one FSE-argument (<I>fse</I>) and return all
+versions for which at least one version from <I>fse</I> satisfies the
+build-dependency of type <I>relation type</I> (see the following table).
+</P>
+
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Function name</TH>
+<TH>Short alias</TH>
+<TH><I>Relation type</I></TH>
+</TR>
+<TR>
+<TD><CODE>reverse-build-depends</CODE></TD>
+<TD><CODE>ZRbd</CODE></TD>
+<TD>Build-Depends</TD>
+</TR>
+<TR>
+<TD><CODE>reverse-build-depends-indep</CODE></TD>
+<TD><CODE>ZRbdi</CODE></TD>
+<TD>Build-Depends-Indep</TD>
+</TR>
+<TR>
+<TD><CODE>reverse-build-conflicts</CODE></TD>
+<TD><CODE>ZRbc</CODE></TD>
+<TD>Build-Conflicts</TD>
+</TR>
+<TR>
+<TD><CODE>reverse-build-conflicts-indep</CODE></TD>
+<TD><CODE>ZRbci</CODE></TD>
+<TD>Build-Conflicts-Indep</TD>
+</TR>
+</TABLE>
+
+<A NAME="toc16"></A>
+<H2>Metafunctions</H2>
+
+<A NAME="toc17"></A>
+<H3>defining functions</H3>
+
+<P>
+The function <B><CODE>with</CODE></B> defines a user function with no parameters
+which can be used as FSE-argument in the subexpression.
+</P>
+<P>
+Syntax:
+</P>
+<P>
+<CODE>with(</CODE><I>function_name</I>, <I>function_expression</I>, <I>subexpression</I><CODE>)</CODE>
+</P>
+
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Argument</TH>
+<TH>Meaning</TH>
+</TR>
+<TR>
+<TD><I>function_name</I></TD>
+<TD>user-defined function name, must start with an underscore (<CODE>_</CODE>)</TD>
+</TR>
+<TR>
+<TD><I>function_expression</I></TD>
+<TD>FSE, function value</TD>
+</TR>
+<TR>
+<TD><I>subexpression</I></TD>
+<TD>FSE which the defined function can be used in</TD>
+</TR>
+</TABLE>
+
+<P>
+This function returns the value of <I>subexpression</I>.
+</P>
+
+<A NAME="toc18"></A>
+<H3>recursing</H3>
+
+<P>
+The function <B><CODE>recursive</CODE></B> defines a recursive transformation FSE.
+</P>
+<P>
+Syntax:
+</P>
+<P>
+<CODE>recursive(</CODE><I>subresult_function_name</I>, <I>initial_subresult</I>, <I>iterating_expression</I><CODE>)</CODE>
+</P>
+
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Argument</TH>
+<TH>Meaning</TH>
+</TR>
+<TR>
+<TD><I>subresult_function_name</I></TD>
+<TD>user-defined function name, must start with an underscore (<CODE>_</CODE>)</TD>
+</TR>
+<TR>
+<TD><I>initial_subresult</I></TD>
+<TD>FSE, initial value of <I>subresult_function_name</I></TD>
+</TR>
+<TR>
+<TD><I>subexpression</I></TD>
+<TD>FSE to compute on each recurse iteration, which <I>subresult_function_name</I> to be used in</TD>
+</TR>
+</TABLE>
+
+<P>
+The function works as follows:
+</P>
+
+<OL>
+<LI><I>subresult_function_name</I> defined as <I>initial_subresult</I>
+<LI>the value of <I>iterating_expression</I> is computed
+<LI>if this value is equal to <I>subresult_function_name()</I> its returned as function result 
+<LI><I>subresult_function_name</I> redefined as <CODE>or(</CODE><I>subresult_function_name</I>, <I>iterating_expression</I><CODE>)</CODE>
+<LI>go to step 2
+</OL>
+
+<A NAME="toc19"></A>
+<H3>mapping</H3>
+
+<P>
+The function <B><CODE>fmap</CODE></B> applies many functions to the same expression and combines their results.
+</P>
+<P>
+The expression
+</P>
+<P>
+<CODE>fmap(</CODE><I>fse</I>, <I>function_name_1</I>, ..., <I>function_name_N</I><CODE>)</CODE>
+</P>
+<P>
+is equivalent to
+</P>
+<P>
+<CODE>or(</CODE><I>function_name_1</I><CODE>(</CODE><I>fse</I><CODE>)</CODE>, ..., <I>function_name_N</I><CODE>(</CODE><I>fse</I><CODE>))</CODE>
+</P>
+
+<A NAME="toc20"></A>
+<H2>Miscellaneous</H2>
+
+<TABLE BORDER="1" CELLPADDING="4">
+<TR>
+<TH>Function name and arguments</TH>
+<TH>Value</TH>
+</TR>
+<TR>
+<TD><CODE>best(</CODE><I>fse</I><CODE>)</CODE></TD>
+<TD>filters out those versions from <I>fse</I> for which there are another version of the same package and higher pin</TD>
+</TR>
+<TR>
+<TD><CODE>binary-to-source(</CODE><I>binary_fse</I><CODE>)</CODE></TD>
+<TD>converts binary versions, selected by <I>binary_fse</I>, to their corresponding source versions</TD>
+</TR>
+</TABLE>
+
+<!-- html code generated by txt2tags 2.6 (http://txt2tags.org) -->
+<!-- cmdline: txt2tags -t html -o functionalselectors.html /tmp/buildd/cupt-2.8.4/doc/functionalselectors.t2t -->
+</BODY></HTML>

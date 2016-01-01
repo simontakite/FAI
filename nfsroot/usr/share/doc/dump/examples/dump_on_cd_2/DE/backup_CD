@@ -1,0 +1,37 @@
+#!/bin/bash
+# This script dumps the specified Filesystem via dump on a CD/DVD
+# CD_CAPACITY defines the capacity in MB per CD
+# The script for the next volume is passed via the -F option of dump
+# !!! do NOT forget to change CD_CAPACITY in $EXITSCRIPT !!!
+COMPRESSION_LEVEL=2
+RECORD_BIN="/usr/bin/cdrecord dev=0,0,0 speed=10 fs=64M -v -dao -eject -pad "
+EXITSCRIPT="/root/bin/cd_dump_userexit"
+FILESYSTEM="/home"
+LEVEL=0
+LABEL="`date -I`"
+# !!! do NOT forget to change CD_CAPACITY in $EXITSCRIPT !!!
+# CD_CAPACITY=650
+CD_CAPACITY=700
+TSIZE="$(echo "$CD_CAPACITY*1024*1024" | bc -l )"
+BSIZE="$(echo "$CD_CAPACITY*1024" | bc -l )"
+FIFO="/tmp/dump.fifo"
+DUMP_BIN="/usr/sbin/dump -z$COMPRESSION_LEVEL -b64 -B$BSIZE -F $EXITSCRIPT -$LEVEL -L $LABEL -f $FIFO $FILESYSTEM"
+
+rm -f $FIFO
+mkfifo $FIFO
+ANSWER=""
+while [ "$ANSWER" != "j" ] ; do  
+	read -p "Ist die CD No. 1 eingelegt? (j/n)" ANSWER
+	if [ "$ANSWER" == "j" ] ; then
+		$RECORD_BIN -tsize=$TSIZE -data $FIFO &
+		$DUMP_BIN 
+		rm -f $FIFO
+		exit 0
+	else
+		EXIT=""
+		read -p "Wollen Sie abbrechen? (j/n)" EXIT
+		if [ "$EXIT" == "j" ] ; then
+			exit 1
+		fi
+	fi
+done

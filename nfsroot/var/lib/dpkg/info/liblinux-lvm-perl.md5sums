@@ -1,0 +1,9 @@
+85b6047fa2000e8545efe1c025050da9  usr/share/doc/liblinux-lvm-perl/changelog.Debian.gz
+a3bd52bab5b416455a40e3f17ac7773e  usr/share/doc/liblinux-lvm-perl/changelog.gz
+1b064ebb3e625fb4423603a6b72ba1b2  usr/share/doc/liblinux-lvm-perl/copyright
+f13f86b02378facd14d8100984aef182  usr/share/doc/liblinux-lvm-perl/examples/get_lv_info.pl
+52261bb4d23fecb867ca37fb96e4a55d  usr/share/doc/liblinux-lvm-perl/examples/get_pv_info.pl
+e8c70ad1fa4021143b779685f007d286  usr/share/doc/liblinux-lvm-perl/examples/prt_vg_info.pl
+058adf40254a7fdd23fe93553c6a23a7  usr/share/man/man3/Linux::LVM.3pm.gz
+d95577dabafc12fbe16edf09cac94fd9  usr/share/perl5/Linux/LVM.pm
+85cfcf48a7c8ad8465e20f7fac574176  usr/share/perl5/auto/Linux/LVM/autosplit.ix

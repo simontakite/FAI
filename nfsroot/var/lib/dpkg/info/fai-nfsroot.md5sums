@@ -1,0 +1,17 @@
+1dd16f3c3173456f0faceab5f990c1fa  usr/bin/policy-rc.d.fai
+7157d0bd9e5f84868ec735df7cbf282a  usr/lib/dracut/modules.d/80fai-autodiscover/fai-scan.sh
+15f7d58ea47d4096b986ace4532cd4d2  usr/lib/dracut/modules.d/80fai-autodiscover/module-setup.sh
+93c4829149fc727bb58a83f7af6cc116  usr/lib/dracut/modules.d/80fai-autodiscover/parse-fai.sh
+589c575e581ac41b6d731cb0147eb42a  usr/lib/fai/create_resolv_conf
+da8d085b592d14afa81ba91ca0acf307  usr/lib/fai/dhclient-perl
+0379dc1f37bab414c78cf988d59c1bff  usr/lib/fai/fai-mount-disk
+7d8332125dad3592114eeeb278e9c7ab  usr/lib/fai/load_keymap_consolechars
+a12b2d66d00a557029ac3a58874405ea  usr/lib/fai/mount2dir
+dad014097be45feafbab8faa49d53922  usr/lib/fai/task_sysinfo
+b5941058d13cbe4eabbe52a484edbd9a  usr/sbin/faireboot
+b3de5349a0867aaee3eb6f34e8eaed78  usr/share/doc/fai-nfsroot/NEWS.Debian.gz
+8c47559fc43a4a41a551d4e400170d43  usr/share/doc/fai-nfsroot/changelog.gz
+2984631ef2579dcc66e5d0dd67c7c1d4  usr/share/doc/fai-nfsroot/copyright
+2d600b321cf896341a915e3f3530ab01  usr/share/fai/dhclient-fai-script
+a12b70e7701a0698b846478d95ed85ac  usr/share/fai/dhclient-fai.conf
+a523fbdc5480fc4d63cd231ab925f2c1  usr/share/lintian/overrides/fai-nfsroot

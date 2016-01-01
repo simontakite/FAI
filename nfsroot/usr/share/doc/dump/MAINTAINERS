@@ -1,0 +1,15 @@
+$Id: MAINTAINERS,v 1.4 2002/01/16 09:32:14 stelian Exp $
+
+The dump and restore backup suit was ported to Linux's Second
+Extended File System by Rémy Card <card@Linux.EU.Org>
+
+He was the maintainer of the initial versions of dump (up and
+including 0.4b4, released in january 1997).
+
+I decided to continue the developpement and release a new version.
+Rémy didn't respond to any mail I sent to him, so I have
+promoted myself as the new maintainer :)
+
+So, starting with 0.4b5, the new maintainer is me,
+Stelian Pop <stelian@popies.net>.
+

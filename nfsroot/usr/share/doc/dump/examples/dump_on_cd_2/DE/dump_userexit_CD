@@ -1,0 +1,24 @@
+#!/bin/bash
+# supplied info from "dump -F":
+# $1 = filename
+# $2 = sequence number
+
+NUM=$(($2+1))
+RECORD_BIN="/usr/bin/cdrecord speed=10 dev=0,0,0 fs=64M "
+# CD_CAPACITY=700
+# TSIZE="$(echo "$CD_CAPACITY*1024*1024" | bc -l )"
+echo -e "Bitte die naechste CD einlegen (No. $NUM)\n"
+ANSWER=""
+while [ "$ANSWER" != "j" ] ; do
+	read -p "Ist die CD bereit? (j/n)" ANSWER
+	if [ "$ANSWER" == "j" ] ; then
+		$RECORD_BIN -eject -pad -data $1 &
+		exit 0
+	elif [ "$ANSWER" == "n" ] ; then
+		EXIT=""
+		read -p "Wollen Sie abbrechen? (j/n)" EXIT
+		if [ "$EXIT" == "j" ] ; then
+			exit 1
+		fi
+	fi
+done

@@ -1,0 +1,1 @@
+/usr/bin/policy-rc.d.fai

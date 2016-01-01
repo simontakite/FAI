@@ -1,0 +1,4 @@
+# Perform Nightly Backup (nightly incremental + weekly full + monthly full)
+02 06 * * 1-6 root backup_rotate ; nice -1 backup inc
+02 06 * * sun root backup_rotate ; nice -1 backup full
+07 00 01 * * root backup_rotate monthly ; backup full nodumpdate

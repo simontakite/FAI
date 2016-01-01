@@ -1,0 +1,10 @@
+$Id: README,v 1.3 1999/10/11 13:31:04 stelian Exp $
+
+	This is a test release of dump 0.4.
+
+	See the file CHANGES for a list of changes from the previous version.
+
+	See the file INSTALL for installation instructions.
+
+	If you encounter problems with the dump and restore backup suite,
+please contact the maintainers and send them a detailled bug report.

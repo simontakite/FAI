@@ -1,0 +1,16 @@
+Historically, dump was *always* used on unmounted filesystems.  Tools like
+AMANDA break that expectation.  Backing up a live filesystem sometimes causes
+problems for tools like dump, depending on what is changing while the backup
+runs.  If you see errors during a dump of a mounted filesystem, try again with
+the filesystem unmounted, and see if that fixes the problem.
+
+In theory, the page cache changes in the 2.4 Linux kernel can cause problems
+to happen more frequently than in prior versions.  Caveat emptor.
+
+--
+
+If you want to dump on remote tapes as a non-root user, you will need to make 
+the dump executable setuid root, so that it can allocate a priveledged port 
+for the outgoing network connection.  This is not the default, since it is
+not commonly needed, and setuid executables are targets for security attacks.
+

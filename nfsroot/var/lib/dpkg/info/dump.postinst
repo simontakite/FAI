@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+# make sure it exists...
+if [ ! -f /var/lib/dumpdates ]; then
+  touch /var/lib/dumpdates
+fi
+
+# Ensure /var/lib/dumpdates is writeable by group disk
+chown root /var/lib/dumpdates
+chgrp disk /var/lib/dumpdates
+chmod 664 /var/lib/dumpdates
+
+update-alternatives --install /usr/sbin/rmt rmt /usr/sbin/rmt-dump \
+	100 --slave /usr/share/man/man8/rmt.8.gz rmt.8.gz \
+	/usr/share/man/man8/rmt-dump.8.gz
+
+
+
+exit 0

@@ -1,0 +1,25 @@
+#!/bin/bash
+# supplied info from "dump -F":
+# $1 = filename
+# $2 = sequence number
+
+NUM=$(($2+1))
+RECORD_BIN="/usr/bin/dvdrecord dev=0,0,0 fs=64M speed=2 "
+CD_CAPACITY=4300
+TSIZE="$(echo "$CD_CAPACITY*1024*1024" | bc -l )"
+echo "Bitte die naechste DVD einlegen (No. $NUM)"
+ANSWER=""
+while [ "$ANSWER" != "j" ] ; do
+	read -p "Ist die DVD bereit? (j/n)" ANSWER
+	if [ "$ANSWER" == "j" ] ; then
+		$RECORD_BIN -blank=fast
+		$RECORD_BIN -dao -eject -pad -tsize=$TSIZE -data $1 &
+		exit 0
+	elif [ "$ANSWER" == "n" ] ; then
+		EXIT=""
+		read -p "Wollen Sie abbrechen? (j/n)" EXIT
+		if [ "$EXIT" == "j" ] ; then
+			exit 1
+		fi
+	fi
+done

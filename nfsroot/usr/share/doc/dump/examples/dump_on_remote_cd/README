@@ -1,0 +1,35 @@
+> I'll be more than happy to put a copy of your scripts in the dump
+> distribution once you'll get this work :-)
+
+So you may have a look at the enclosed scripts.
+
+I use rsh in both directions. This may easily be changed to ssh.
+
+Basically three scripts are now necessary. The first wraps around the
+dump-command, the second acts as user exit when CD has to be changed
+and the third has to be run on the remote box.
+
+To make things easier I put the first two into one file called
+dump-to-remote-cd. The second file called get-dumpdata-to-cdrecord must
+be copied to the box with the CD-Burner. There is a small
+configuration section in it to get cdrecord to work.  
+
+dump-to-remote-cd may be called with the capacity of the media which
+is used and / or a filesystem argument passed to dump.
+
+Usage is: 
+
+dump-to-remote-cd [ -c <CD_capacity> ] [files to dump ...]
+
+There are defaults in the scripts which are used if any of these
+arguments are missing. The hostname of the box with the CD-burner
+has to be edited in any case.
+
+Kind regards
+
+Gerd
+
+------------------------------------------------------------------------
+Gerd Bavendiek                             Linux Laptop Users check out:
+bav@epost.de                               http://netenv.sourceforge.net
+------------------------------------------------------------------------

@@ -1,0 +1,15 @@
+20afbc4306c079a248a1f88da999161e  lib/firmware/bnx2/bnx2-mips-06-5.0.0.j3.fw
+9c7e3239decffc8d1a3cc515a6ccc4e8  lib/firmware/bnx2/bnx2-mips-06-6.2.1.fw
+d8d623ae5934109ccfe8c041a1cf88ae  lib/firmware/bnx2/bnx2-mips-06-6.2.3.fw
+749489a4e61de9f072c9dc71e42ca5f4  lib/firmware/bnx2/bnx2-mips-09-5.0.0.j3.fw
+50919225ef097769d2a85d5fdc422535  lib/firmware/bnx2/bnx2-mips-09-6.2.1a.fw
+818fb0623290ae1262ce8941b1c924bd  lib/firmware/bnx2/bnx2-mips-09-6.2.1b.fw
+9f9ca40f27f9d50a2a95ad3e2bcc2026  lib/firmware/bnx2/bnx2-rv2p-06-5.0.0.j3.fw
+82d2d93e3537cd62c7320eff131eb1d0  lib/firmware/bnx2/bnx2-rv2p-06-6.0.15.fw
+c2097f7b2bf68f843277d96c6ada796e  lib/firmware/bnx2/bnx2-rv2p-09-5.0.0.j3.fw
+819dafab2a97829611b64badf1db3a6c  lib/firmware/bnx2/bnx2-rv2p-09-6.0.17.fw
+319eadd55a57be0a6805176a00b06c87  lib/firmware/bnx2/bnx2-rv2p-09ax-5.0.0.j3.fw
+9429d56e6f39222cf523f9ad925b7916  lib/firmware/bnx2/bnx2-rv2p-09ax-6.0.17.fw
+8dbcc0513822473f1ebe02dcf31dcc01  usr/share/bug/firmware-bnx2/presubj
+4322dab2f282775e9913f6399b4e7c31  usr/share/doc/firmware-bnx2/changelog.gz
+f7efa25af1746b4859e2d4d2ccbd81cd  usr/share/doc/firmware-bnx2/copyright

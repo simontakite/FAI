@@ -1,0 +1,116 @@
+_cupt()
+{
+	local cur subcommands subcommand command arguments package_name_arguments common_options
+
+	subcommands='-h --help help \
+			-v --version version \
+			config-dump show showsrc search \
+			depends rdepends why policy policysrc \
+			pkgnames changelog copyright screenshots \
+			snapshot update \
+			install remove full-upgrade safe-upgrade dist-upgrade reinstall iii \
+			build-dep satisfy source \
+			clean autoclean shell \
+			markauto unmarkauto showauto'
+
+	COMPREPLY=()
+
+	command="${COMP_WORDS[0]}"
+	cur="${COMP_WORDS[COMP_CWORD]}"
+
+	local previous_word="${COMP_WORDS[$((COMP_CWORD-1))]}"
+	if [ "${previous_word}" == "-o" ] || [ "${previous_word}"  == "--option" ]; then
+		COMPREPLY=($(compgen -W "$($command config-dump | sed 's/ .*//')" -- ${cur}))
+		if type -t __ltrim_colon_completions > /dev/null; then
+			__ltrim_colon_completions ${cur}
+		fi
+		return 0;
+	fi
+
+	# determining subcommand
+	for word_number in `seq 1 $((COMP_CWORD-1))`; do
+		if [[ "${COMP_WORDS[word_number]}" != -* ]]; then
+			# ok, that should be subcommand
+			subcommand="${COMP_WORDS[word_number]}"
+			break
+		fi
+	done
+
+	if [ "${subcommand}" == "" ]; then
+		# there's no main subcommand yet
+		arguments=${subcommands}
+	else
+		# found subcommand, go case by case then
+		local subcommand_type
+		case "${subcommand}" in
+			install|remove|full-upgrade|safe-upgrade|dist-upgrade|reinstall|build-dep|iii)
+				subcommand_type='manage'
+				;;
+			source)
+				subcommand_type='query'
+				arguments='--tar-only --diff-only --dsc-only --download-only'
+				;;
+			show|showsrc)
+				subcommand_type='query'
+				arguments='--all-versions -a --no-all-versions --with-release-info'
+				;;
+			policy|policysrc)
+				subcommand_type='query'
+				arguments='--show-dates'
+				;;
+			why|pkgnames|changelog|copyright|screenshots)
+				subcommand_type='query'
+				;;
+			search)
+				arguments='--case-sensitive --names-only -n --fse'
+				;;
+			depends|rdepends)
+				subcommand_type='query'
+				arguments='--with-suggests --recurse'
+				;;
+			snapshot)
+				arguments='list save load remove rename'
+				;;
+			markauto|unmarkauto)
+				package_name_arguments="$(${command} pkgnames ${cur} --installed-only 2>/dev/null)"
+				;;
+			showauto)
+				arguments='--invert'
+				;;
+		esac
+
+		if ([ "${subcommand_type}" == "query" ] || [ "${subcommand_type}" == "manage" ]) && [[ "${cur}" != -* ]]; then
+			package_name_arguments="$(${command} pkgnames ${cur} 2>/dev/null)"
+		fi
+
+		if [ "${subcommand_type}" == "query" ]; then
+			# query-specific options
+			arguments="${arguments} --important --installed-only"
+		fi
+
+		if [ "${subcommand_type}" == "manage" ]; then
+			# manage-specific options
+			arguments="${arguments} --no-remove --no-auto-remove --simulate -s \
+					--resolver=fair --resolver=full --max-solution-count= \
+					--no-install-recommends -R --show-archives -A --show-versions -V --show-not-preferred
+					--show-size-changes -Z --show-reasons --show-deps -D \
+					--show-vendors -O --show-codenames -N --show-components -C \
+					--install --remove --satisfy --unsatisfy --markauto --unmarkauto --asauto=yes --asauto=no --asauto=default
+					--importance=must --importance=try --importance=wish --importance= --must --try --wish
+					--select=flexible --select=traditional --sf --st
+					--download-only -d \
+					--summary-only --no-summary \
+					--assume-yes --yes -y"
+		fi
+	fi
+
+	common_options="-o --option --target-release --default-release -t --purge --quiet -q"
+	common_options="${common_options} --include-archives= --exclude-archives= --include-codenames= --exclude-codenames="
+	arguments="${arguments} ${common_options}"
+	arguments=$(compgen -W "${arguments}" -- ${cur})
+	COMPREPLY=(${arguments} ${package_name_arguments})
+	return 0
+}
+
+complete -F _cupt cupt
+
