@@ -2,7 +2,7 @@
 
 # use external mirror, remove this script when using a mirror from CD
 
-dist=trusty
+#dist=trusty
 
 cat <<EOM > $target/etc/apt/sources.list
 # external mirror
